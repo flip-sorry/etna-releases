@@ -71,7 +71,7 @@
   var TOP_PAD = 120;         // Mac top edge rests here — the Mac stays readable
   var PANEL_VH = 0.62;       // opened panel ≈ 62% of the viewport height
   var PANEL_W = 365;         // panel layout width (app pt)
-  var LID_CLOSED = 88;       // hero lid angle — nearly shut, a luminous slit
+  var LID_CLOSED = 90;       // hero lid angle — fully shut, dark until scroll
   /* the dialogue owns nearly half the 780vh track, so each streamed turn
      gets ~30vh of scroll — deliberately low scroll-sensitivity */
   var LID0 = 0.00, LID1 = 0.18;      // lid-opening window
@@ -160,13 +160,17 @@
     var p = forceP !== null ? forceP
           : clamp01(-zoom.getBoundingClientRect().top / track);
 
-    /* lid: swings open from half-closed; screen glow drains off the deck */
+    /* lid: fully shut and lightless at rest — the first scroll cracks it
+       open, light spills out, then drains away as the screen comes up */
     var l = ease(map(p, LID0, LID1));
     lid.style.transform = l >= 1 ? 'none'
       : 'rotateX(' + (-LID_CLOSED * (1 - l)) + 'deg)';
-    glow.style.opacity = String(1 - l);
+    /* pure black at rest: even the silhouette waits for the first scroll */
+    macbook.style.opacity = String(map(p, 0.005, 0.05));
+    var crack = map(l, 0, 0.1);
+    glow.style.opacity = String(crack * (1 - map(l, 0.35, 0.9)));
     /* the wash is a grazing-angle effect — gone once the screen is readable */
-    veil.style.opacity = String(1 - map(l, 0, 0.35));
+    veil.style.opacity = String(crack * (1 - map(l, 0.1, 0.35)));
 
     /* brand: big at mid-screen while shut; lifts home and shrinks as the
        lid opens, then the whole hero fades */
