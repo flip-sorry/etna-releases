@@ -83,6 +83,12 @@
 
   if (reduced || small()) {
     document.body.classList.add('no-zoom');
+    // static layout hides the Mac — abort the meeting-video downloads
+    document.querySelectorAll('.meet video').forEach(function (v) {
+      v.removeAttribute('autoplay');
+      v.removeAttribute('src');
+      v.load();
+    });
     if (reduced) return;
   }
 

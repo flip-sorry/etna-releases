@@ -531,10 +531,7 @@ footer {
 body.no-zoom .zoom { height: auto; }
 body.no-zoom .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
 body.no-zoom .hero { opacity: 1 !important; transform: none !important; }
-body.no-zoom .macbook { opacity: 1 !important; transform: none !important; }
-body.no-zoom .mb-lid { transform: none !important; }
-body.no-zoom .mb-glow { opacity: 0 !important; }
-body.no-zoom .island { opacity: 1 !important; }
+body.no-zoom .macbook { display: none; }
 body.no-zoom .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
 body.no-zoom .panel {
   margin: 56px auto 0;
@@ -556,10 +553,8 @@ body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
 @media (max-width: 768px), (max-height: 600px) {
   .zoom { height: auto; }
   .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
-  .hero, .macbook { opacity: 1 !important; transform: none !important; }
-  .mb-lid { transform: none !important; }
-  .mb-glow { opacity: 0 !important; }
-  .island { opacity: 1 !important; }
+  .hero { opacity: 1 !important; transform: none !important; }
+  .macbook { display: none; }
   .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
   .panel {
     margin: 56px auto 0;
@@ -592,10 +587,8 @@ body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
   /* static stacked layout, same as small screens */
   .zoom { height: auto; }
   .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
-  .hero, .macbook { opacity: 1 !important; transform: none !important; }
-  .mb-lid { transform: none !important; }
-  .mb-glow { opacity: 0 !important; }
-  .island { opacity: 1 !important; }
+  .hero { opacity: 1 !important; transform: none !important; }
+  .macbook { display: none; }
   .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
   .panel {
     margin: 56px auto 0;
