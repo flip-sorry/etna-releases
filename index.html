@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etna — Meeting notes, living natively on your Mac</title>
+<meta name="description" content="Etna records both sides of your calls, transcribes them entirely on your Mac, and writes notes straight into your Obsidian vault. No servers, no subscription — your meetings never leave the device.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Etna — Meeting notes, living natively on your Mac">
+<meta property="og:description" content="On-device meeting transcription that writes straight into your Obsidian vault. No servers, no subscription — your meetings never leave your Mac.">
+<meta property="og:image" content="https://flip-sorry.github.io/etna-releases/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main>
+
+  <!-- ============ HERO + SCROLL ZOOM (one pinned section) ============ -->
+  <section class="zoom" id="zoom">
+    <div class="zoom__sticky" id="sticky">
+
+      <header class="hero" id="hero">
+        <div class="hero__brand">
+          <img src="assets/etna-stone.png" alt="" width="48" height="48">
+          <span>Etna</span>
+        </div>
+      </header>
+
+      <!-- aurora behind the zoomed Mac -->
+      <div class="zoom__aurora" id="aurora" aria-hidden="true"></div>
+
+      <!-- MacBook running a fake meeting -->
+      <div class="macbook" id="macbook" aria-hidden="true">
+        <div class="mb-lid">
+          <div class="mb-screen">
+
+            <div class="meet">
+              <div class="tile">
+                <video src="assets/people/maya.mp4" autoplay muted loop playsinline></video>
+                <span class="nametag">Maya</span>
+              </div>
+              <div class="tile">
+                <video src="assets/people/tom.mp4" autoplay muted loop playsinline></video>
+                <span class="nametag">Tom</span>
+              </div>
+              <div class="tile" style="--i:1">
+                <video src="assets/people/marco.mp4" autoplay muted loop playsinline></video>
+                <span class="ring"></span>
+                <span class="nametag"><span class="mini-wave"><i></i><i></i><i></i></span>Marco</span>
+              </div>
+              <div class="tile" style="--i:0">
+                <video src="assets/people/lena.mp4" autoplay muted loop playsinline></video>
+                <span class="ring"></span>
+                <span class="nametag"><span class="mini-wave"><i></i><i></i><i></i></span>Lena</span>
+              </div>
+              <div class="tile">
+                <video src="assets/people/omar.mp4" autoplay muted loop playsinline></video>
+                <span class="nametag">Omar</span>
+              </div>
+              <div class="tile tile--you">
+                <video src="assets/people/you.mp4" autoplay muted loop playsinline></video>
+                <span class="nametag"><svg class="mic-off" viewBox="0 0 12 12" width="8" height="8"><rect x="4.4" y="1.5" width="3.2" height="5.4" rx="1.6" fill="#ff6b62"/><path d="M3 6.2 Q3 9 6 9 Q9 9 9 6.2" stroke="#ff6b62" stroke-width="1" fill="none" stroke-linecap="round"/><line x1="6" y1="9" x2="6" y2="10.6" stroke="#ff6b62" stroke-width="1" stroke-linecap="round"/><line x1="2.2" y1="1.4" x2="9.8" y2="10.4" stroke="#ff453a" stroke-width="1.2" stroke-linecap="round"/></svg>Dan</span>
+              </div>
+            </div>
+
+            <div class="meet__controls">
+              <span></span><span></span><span class="end"></span>
+            </div>
+
+            <!-- Etna's notch island, live during the meeting -->
+            <div class="island" id="mockIsland">
+              <b class="island-bg"></b>
+              <span class="wave"><i></i><i></i><i></i><i></i><i></i></span>
+              <span class="timer js-timer">12:34</span>
+            </div>
+
+            <!-- luminous wash while the lid is ajar: the slit reads as
+                 light, then resolves into the meeting as the lid opens -->
+            <i class="mb-veil"></i>
+
+          </div>
+          <!-- aluminum lid back: visible only while the lid's rear faces
+               the camera, so the screen never shines through the cover -->
+          <i class="mb-lidback"></i>
+        </div>
+        <div class="mb-deck"><i class="mb-glow"></i><b class="mb-base"></b></div>
+      </div>
+
+      <!-- bottom melt: dissolves the zoomed Mac's cut edge into the page -->
+      <div class="zoom__fade" id="zoomFade" aria-hidden="true"></div>
+
+      <!-- Full-size notch panel: the app's onboarding first screen.
+           The positioner is never zoomed; the panel inside carries the zoom. -->
+      <div class="panel-pos" id="panelPos">
+      <div class="panel" id="panel">
+        <div class="panel__strip" aria-hidden="true">
+          <span class="wave"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="timer js-timer">12:34</span>
+        </div>
+        <div class="panel__body">
+          <div class="panel__copy">
+            <img class="panel__stone" src="assets/etna-stone.png" alt="" width="110" height="110">
+            <h1>Meeting notes,<br>living natively on your&nbsp;Mac</h1>
+            <p class="panel__sub">Etna records both sides of your calls, transcribes them entirely on-device, and writes clean markdown straight into your Obsidian vault. No servers, no subscription.</p>
+          </div>
+          <!-- second beat: the copy hands off to a transcript-style dialogue
+               that scrolls like the app's live feed as turns arrive -->
+          <div class="panel__dialog" aria-hidden="true">
+            <div class="dlg" id="dlgScroll">
+              <div class="msg msg--them msg--lena"><span>Lena</span><b>Wait — you weren't taking notes this whole call?</b></div>
+              <div class="msg msg--me"><span>Me</span><b>Etna was. Right there on my Mac.</b></div>
+              <div class="msg msg--them msg--marco"><span>Marco</span><b>Where? You've been sharing your screen this whole time.</b></div>
+              <div class="msg msg--me"><span>Me</span><b>You can't see it — Etna ignores screen sharing. No one gets disturbed by its interface, and my notes stay mine.</b></div>
+              <div class="msg msg--them msg--lena"><span>Lena</span><b>So where do the notes end up?</b></div>
+              <div class="msg msg--me"><span>Me</span><b>Right after this meeting it's summarized automatically and lands in my Obsidian vault.</b></div>
+              <div class="msg msg--them msg--marco"><span>Marco</span><b>You didn't even start it, did you?</b></div>
+              <div class="msg msg--me"><span>Me</span><b>Never do. It detects the meeting, figures out who's talking, and writes it all down by itself.</b></div>
+              <div class="msg msg--them msg--lena"><span>Lena</span><b>And next week, when we've forgotten all of this?</b></div>
+              <div class="msg msg--me"><span>Me</span><b>It keeps a memory for every project we mention. The more meetings I have, the smarter my vault gets — all the dots connect.</b></div>
+            </div>
+          </div>
+          <a class="cta-capsule" href="https://github.com/flip-sorry/etna-releases/releases/latest">Download Etna</a>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ VALUE PROPS ============ -->
+  <section class="value">
+    <h2>Private by architecture, not by promise</h2>
+    <p class="value__lead">There is no Etna cloud. Transcription and speaker separation run on-device, and notes are written directly into your Obsidian vault — plain markdown files you own, with no service sitting between you and them. Etna is free: summaries run on Apple&nbsp;Intelligence at no cost, or on your own API key for the model of your choice — the only tokens you ever pay for are your own.</p>
+    <div class="value__grid">
+      <article>
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="10" x2="3" y2="14"/><line x1="7.5" y1="7" x2="7.5" y2="17"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="16.5" y1="7" x2="16.5" y2="17"/><line x1="21" y1="10" x2="21" y2="14"/></g></svg>
+        <h3>Hears both sides</h3>
+        <p>Your microphone and the audio other apps play — Zoom, Meet, Teams — captured and transcribed live.</p>
+      </article>
+      <article>
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.4" fill="currentColor"/><path d="M8 10.5 V7.8 Q8 4 12 4 Q16 4 16 7.8 V10.5" stroke="currentColor" stroke-width="2.2" fill="none"/></svg>
+        <h3>Stays on this Mac</h3>
+        <p>On-device speech models, on-device speaker separation. No account, no upload, no server pulling data off your machine.</p>
+      </article>
+      <article>
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><circle cx="9" cy="8.5" r="3.4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 19.5 Q3.5 13.8 9 13.8 Q14.5 13.8 14.5 19.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="17.5" y1="7.5" x2="17.5" y2="10.5"/><line x1="20" y1="6" x2="20" y2="12"/><line x1="22.5" y1="7.5" x2="22.5" y2="10.5"/></g></svg>
+        <h3>Knows who said what</h3>
+        <p>Speakers are separated live and recognized across meetings — name someone once and Etna remembers their voice.</p>
+      </article>
+      <article>
+        <svg viewBox="0 0 311 401" width="22" height="28" aria-hidden="true"><path fill="currentColor" d="M115.496 251.754C144.334 245.221 171.673 243.036 196.461 252.313C221.931 261.846 245.869 283.948 265.853 329.04C259.386 343.221 255.921 358.613 254.103 372.124C251.641 390.407 233.752 404.689 215.975 399.758C190.644 392.778 161.315 381.893 134.925 379.864C131.449 379.597 94.565 376.801 94.4785 376.794C93.1143 376.697 91.7678 376.494 90.4492 376.193C115.645 324.784 121.058 284.005 115.496 251.754ZM45.6719 171.174C63.5251 183.006 85.163 201.467 96.8867 230.066C109.806 261.582 111.176 306.66 79.6475 370.964C78.8034 370.284 77.9964 369.552 77.2344 368.768L7.54199 296.993C-0.0744281 289.151 -2.1366 277.454 2.33886 267.479C2.41869 267.304 38.0884 188.904 45.6719 171.174ZM257.048 98.165C260.966 103.145 262.975 109.333 263.005 115.669C263.084 132.339 264.459 166.563 273.675 188.605C282.64 210.046 299.093 233.202 307.692 244.597C310.992 248.97 311.498 254.883 308.71 259.6C302.641 269.875 290.65 289.606 273.675 314.92C273.45 315.255 273.229 315.591 273.009 315.929C252.842 274.169 228.281 251.409 200.666 241.074C192.941 238.183 185.058 236.3 177.071 235.225C162.812 198.643 158.597 171.486 159.525 150.092C160.477 128.178 166.838 111.843 174.095 97.0596C181.194 82.597 189.935 68.3539 194.031 52.5117C196.604 42.5608 197.409 31.9452 195.406 19.8555L257.048 98.165ZM148.974 6.84765C157.211 -0.562172 168.715 -1.86292 178.079 2.48241C185.753 22.1361 185.73 36.6775 182.413 49.5078C178.726 63.7703 171.123 75.881 163.322 91.7734C155.679 107.345 148.587 125.37 147.536 149.572C146.567 171.907 150.758 199.102 163.821 234.154C147.012 233.651 129.879 236.191 112.905 240.035C111.531 234.965 109.88 230.128 107.989 225.516C94.1611 191.782 68.0846 171.155 48.7715 158.882C51.2497 143.905 55.3225 114.556 57.9893 96.875C58.9119 90.759 61.931 85.1522 66.5293 81.0156L148.974 6.84765Z"/></svg>
+        <h3>Straight into Obsidian</h3>
+        <p>Finished meetings land in your vault as clean markdown — summary, transcript, speaker names. Your files, readable by anything, locked to nothing.</p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer__brand">
+    <img src="assets/etna-stone.png" alt="" width="28" height="28">
+    <span>Etna</span>
+  </div>
+  <nav class="footer__links">
+    <a href="https://github.com/flip-sorry/etna-releases/releases/latest">Download</a>
+    <a href="mailto:mail@j-alyavdin.com">Contact</a>
+    <a href="https://github.com/flip-sorry/etna-releases">Releases</a>
+  </nav>
+  <p class="footer__fine">Free during beta · macOS 26 or later · Apple Silicon · Signed &amp; notarized</p>
+  <p class="footer__fine">© 2026 Iurii Aliavdin</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

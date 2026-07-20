@@ -1,0 +1,601 @@
+/* ============ Tokens (mirrors the app's design system) ============ */
+:root {
+  --bg: #0b0b0f;
+  --surface: #000;
+  --text: #f5f5f7;
+  --text-2: #98989f;
+  --text-3: #6e6e76;
+  --accent: #c855ff;        /* marketing accent, from the Etna stone */
+  --blue: #0A84FF;          /* app accent (capability-row icons) */
+  --red: #ff453a;           /* notch waveform */
+  --cta: #4d4d4d;           /* neutral notch CTA fill */
+  --r-s: 6px; --r-m: 10px; --r-l: 14px;
+  --d-fast: .15s; --d-normal: .25s; --d-slow: .35s;
+  --iu: 1px;                /* island unit: 1/285 of island width (cqw below) */
+}
+
+/* brand serif, self-hosted — no Google CDN callout on a privacy product */
+@font-face {
+  font-family: 'Averia Serif Libre';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/averia-serif-libre-700.woff2') format('woff2');
+}
+
+/* ============ Base ============ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.4;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(640px 420px at 50% -120px, rgba(150, 60, 230, .16), transparent 70%);
+}
+img { display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ============ Zoom section (hero + pinned choreography) ============ */
+.zoom { height: 780vh; }
+.zoom__sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: clip;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* ---- Hero copy ---- */
+.hero {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 720px;
+  text-align: center;
+  padding: clamp(40px, 8vh, 88px) 24px 0;
+}
+/* stacked stone-over-wordmark lockup; JS holds it big at mid-screen while
+   the lid is shut, then lifts and shrinks it as the Mac opens */
+.hero__brand {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  transform-origin: 50% 0;
+}
+.hero__brand img { width: 48px; height: 48px; }
+.hero__brand span {
+  font-family: 'Averia Serif Libre', Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  font-size: 27px;
+  letter-spacing: -.05em;
+  line-height: 1.1;
+  background: linear-gradient(180deg, #c9b6e9, #fff 62%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
+}
+
+/* ---- aurora behind the zoomed Mac (fades in with the zoom) ---- */
+.zoom__aurora {
+  position: absolute; inset: 0; z-index: 0;
+  /* volcanic sweep: teal → blue → violet → magma pink → ember */
+  background:
+    radial-gradient(36% 24% at 10% 5%, rgba(45, 212, 200, .34), transparent 70%),
+    radial-gradient(42% 28% at 31% 0, rgba(80, 130, 255, .4), transparent 72%),
+    radial-gradient(48% 30% at 52% 0, rgba(175, 90, 255, .46), transparent 72%),
+    radial-gradient(40% 26% at 73% 2%, rgba(255, 80, 160, .38), transparent 70%),
+    radial-gradient(36% 24% at 91% 6%, rgba(255, 150, 70, .34), transparent 70%),
+    radial-gradient(75% 42% at 50% 8%, rgba(120, 70, 220, .18), transparent 78%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- MacBook mock ---- */
+/* Perspective lets the lid rotate about its hinge; the camera sits at the
+   container's vertical center — just above the hinge, so the half-closed
+   screen stays visible and the deck reads as a surface. */
+.macbook {
+  position: relative; z-index: 1;
+  --mw: min(760px, 88vw);
+  width: var(--mw);
+  margin-top: clamp(40px, 7vh, 96px);
+  /* ONE camera for the whole machine — per-element lenses made the slit
+     and the body disagree about depth. Origin well above the hinge so the
+     ajar lid is seen from above: the slit reads as a lit band overlapping
+     the deck, near edge widest. (%-origin, so layout can't move it.) */
+  perspective: 2600px;
+  perspective-origin: 50% 28%;
+}
+.mb-lid {
+  position: relative; z-index: 2;   /* the slit always paints over the deck */
+  background: #000;
+  border: 1px solid #222226; border-bottom: none;
+  border-radius: clamp(10px, 2vw, 16px) clamp(10px, 2vw, 16px) 0 0;
+  padding: clamp(5px, 1.1vw, 9px) clamp(5px, 1.1vw, 9px) 0;
+  transform-origin: 50% 100%;   /* hinge — JS rotates the lid open on scroll */
+  transform-style: preserve-3d; /* lets the lid back flip with the lid */
+}
+.mb-lidback {
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(175deg, #17171b, #0c0c0f 60%);
+  /* faces away from the screen; 0.5px offset avoids same-plane fighting */
+  transform: rotateY(180deg) translateZ(0.5px);
+  backface-visibility: hidden;
+  pointer-events: none;
+}
+.mb-screen {
+  position: relative;
+  aspect-ratio: 1512 / 945;
+  background: #141418;
+  border-radius: clamp(5px, 1vw, 8px) clamp(5px, 1vw, 8px) 0 0;
+  overflow: hidden;
+}
+/* luminous wash over the screen while the lid is ajar (JS-driven) */
+.mb-veil {
+  position: absolute; inset: 0;
+  /* vertical wash + a spectral tilt: blue left, warm right, like light
+     splitting at a grazing angle */
+  background:
+    linear-gradient(90deg, rgba(90, 140, 255, .45), rgba(170, 90, 255, .1) 38%, rgba(255, 95, 125, .4)),
+    linear-gradient(to top,
+      rgba(235, 218, 255, .95),
+      rgba(205, 120, 255, .72) 40%,
+      rgba(170, 90, 255, .5));
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* keyboard deck: a fixed foreshortened plane extending toward the viewer */
+.mb-deck {
+  position: relative;
+  aspect-ratio: 1512 / 600;
+  /* the rotated plane projects to ~45% of its layout height — pull the
+     base bar up so it hugs the deck's front edge */
+  margin-bottom: calc(var(--mw) * -0.22);
+  transform-origin: 50% 0;
+  transform: rotateX(72deg);
+  transform-style: preserve-3d;   /* the front wall lives in this 3D space */
+  background: linear-gradient(#1a1a1f, #101014 70%);
+  border: 1px solid #222226; border-top: none; border-bottom: none;
+  /* no in-plane corner rounding: foreshortening turns it into a weird
+     chamfer — the body's curves live on the front wall below */
+}
+.mb-deck::before {          /* keyboard: dark caps split by darker gaps */
+  content: '';
+  position: absolute; left: 14%; right: 14%; top: 10%; height: 50%;
+  border-radius: 10px;
+  background:
+    repeating-linear-gradient(to right, #0a0a0d 0 .6%, transparent .6% 6.75%),
+    repeating-linear-gradient(to bottom, #17171c 0 13.6%, #0a0a0d 13.6% 16.2%),
+    #0a0a0d;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, .55);
+}
+.mb-deck::after {           /* trackpad */
+  content: '';
+  position: absolute; left: 36%; right: 36%; top: 66%; bottom: 12%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .02);
+  border: 1px solid rgba(255, 255, 255, .05);
+}
+/* screen light spilling onto the deck while the lid is ajar (JS-driven) */
+.mb-glow {
+  position: absolute; inset: 0; z-index: 1;
+  border-radius: inherit;
+  overflow: hidden;   /* light lives on the deck only — never past the hinge */
+  /* spectral spill, cool → hot → warm across the width */
+  background:
+    radial-gradient(56% 130% at 50% 0, rgba(235, 215, 255, .46), rgba(200, 85, 255, .16) 46%, transparent 74%),
+    radial-gradient(46% 115% at 15% 0, rgba(85, 140, 255, .36), transparent 70%),
+    radial-gradient(46% 115% at 85% 0, rgba(255, 85, 115, .32), transparent 70%),
+    linear-gradient(to bottom, rgba(160, 110, 255, .16), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+}
+.mb-glow::before {          /* hot bloom along the slit, hugging the hinge */
+  content: '';
+  position: absolute; left: 3%; right: 3%; top: -4px; height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(90deg,
+    rgba(90, 150, 255, 0),
+    rgba(90, 150, 255, .65) 12%,
+    rgba(200, 120, 255, .8) 34%,
+    rgba(246, 232, 255, .95) 50%,
+    rgba(255, 150, 190, .75) 68%,
+    rgba(255, 95, 95, .55) 88%,
+    rgba(255, 95, 95, 0));
+  filter: blur(5px);
+}
+/* front wall: a vertical plane hinged to the deck's front edge, so the
+   body can never detach from the keyboard surface */
+.mb-base {
+  position: absolute; top: calc(100% - 1px); left: -1px; right: -1px;
+  height: 18px;
+  transform-origin: 50% 0;
+  transform: rotateX(-72deg);   /* undo the deck tilt → world-vertical */
+  background: linear-gradient(#34343c, #1e1e24 55%, #15151a);
+  border: 1px solid #222226; border-top: none;
+  border-radius: 0 0 14px 14px;
+}
+.mb-base::before {              /* thumb scoop */
+  content: '';
+  position: absolute; top: 0; left: 50%; translate: -50% 0;
+  width: 13%; height: 52%;
+  background: #101014;
+  border-radius: 0 0 8px 8px;
+}
+
+/* ---- Fake meeting ---- */
+.meet {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 1.3%;
+  padding: 4.6% 1.4% 6.5%;
+  background: #17171c;
+}
+.tile {
+  position: relative;
+  border-radius: var(--r-s);
+  overflow: hidden;
+  contain: layout paint;
+}
+.tile video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.ring {
+  position: absolute; inset: 0;
+  border-radius: var(--r-s);
+  box-shadow: inset 0 0 0 2px var(--accent), 0 0 16px rgba(200, 85, 255, .35);
+  opacity: 0;
+  animation: gate-on 12s linear infinite;
+  animation-delay: calc(var(--i) * -6s);
+}
+.nametag {
+  position: absolute; left: 5px; bottom: 5px;
+  display: flex; align-items: center; gap: 4px;
+  font-size: 9px; font-weight: 500; color: #e9e9ee;
+  background: rgba(0, 0, 0, .55);
+  padding: 2px 7px; border-radius: 999px;
+}
+.mini-wave { display: flex; align-items: center; gap: 1.5px; height: 7px; }
+.mini-wave i {
+  width: 1.5px; border-radius: 1px;
+  background: var(--accent);
+  height: 4px;
+  opacity: 0;
+  transform-origin: center;
+  animation: gate-on 12s linear infinite, wob .5s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -6s), calc(var(--j, 0) * -.14s);
+}
+.mini-wave i:nth-child(2) { --j: 1; height: 7px; }
+.mini-wave i:nth-child(3) { --j: 2; }
+.mic-off { flex: 0 0 auto; }
+
+.meet__controls {
+  position: absolute; bottom: 1.6%; left: 50%; translate: -50% 0;
+  display: flex; gap: 5px;
+  background: rgba(0, 0, 0, .45);
+  padding: 3px 8px; border-radius: 999px;
+}
+.meet__controls span { width: 7px; height: 7px; border-radius: 50%; background: #3c3c44; }
+.meet__controls .end { background: #b0362e; }
+
+@keyframes gate-on  { 0% { opacity: 0; } 2%, 47% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes wob  { from { transform: scaleY(.4); } to { transform: scaleY(1); } }
+
+/* ---- Notch island (tiny, inside the mock screen) ---- */
+/* Sized as 285/1512 of the screen; children scale via container units:
+   --iu = 1/285 of island width, so values match the app's pt values. */
+.island {
+  position: absolute; top: 0; left: 50%; translate: -50% 0;
+  width: 18.85%;
+  aspect-ratio: 285 / 32;
+  container-type: inline-size;
+  --iu: calc(100cqw / 285);
+}
+/* body + concave ears painted on a full-bleed child, so the container
+   units (--iu) resolve against .island itself */
+.island-bg {
+  position: absolute; inset: 0;
+  background: #000;
+  border-radius: 0 0 calc(10 * var(--iu)) calc(10 * var(--iu));
+}
+.island-bg::before, .island-bg::after {
+  content: '';
+  position: absolute; top: 0;
+  width: calc(8 * var(--iu)); height: calc(8 * var(--iu));
+}
+.island-bg::before {
+  right: 100%;
+  background: radial-gradient(circle at 0 100%, transparent calc(8 * var(--iu) - .5px), #000 calc(8 * var(--iu)));
+}
+.island-bg::after {
+  left: 100%;
+  background: radial-gradient(circle at 100% 100%, transparent calc(8 * var(--iu) - .5px), #000 calc(8 * var(--iu)));
+}
+.island > .wave  { position: absolute; left: calc(15 * var(--iu)); top: 50%; translate: 0 -50%; }
+.island > .timer { position: absolute; right: calc(15 * var(--iu)); top: 50%; translate: 0 -50%; }
+
+/* ---- Waveform + timer (shared by tiny island and full panel strip) ---- */
+.wave { display: flex; align-items: center; }
+.wave i {
+  border-radius: 1px;
+  background: var(--red);
+  transform-origin: center;
+  animation: wob .9s ease-in-out infinite alternate;
+}
+.wave i:nth-child(1) { animation-delay: -.00s; }
+.wave i:nth-child(2) { animation-delay: -.15s; }
+.wave i:nth-child(3) { animation-delay: -.30s; }
+.wave i:nth-child(4) { animation-delay: -.45s; }
+.wave i:nth-child(5) { animation-delay: -.60s; }
+.timer {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* tiny island sizes */
+.island .wave { gap: calc(2 * var(--iu)); }
+.island .wave i { width: calc(2 * var(--iu)); }
+.island .wave i:nth-child(1), .island .wave i:nth-child(5) { height: calc(9 * var(--iu)); }
+.island .wave i:nth-child(2), .island .wave i:nth-child(4) { height: calc(13 * var(--iu)); }
+.island .wave i:nth-child(3) { height: calc(16 * var(--iu)); }
+.island .timer { font-size: calc(13 * var(--iu)); }
+
+/* panel strip sizes (natural px) */
+.panel__strip .wave { gap: 2px; position: absolute; left: 15px; top: 50%; translate: 0 -50%; }
+.panel__strip .wave i { width: 2px; }
+.panel__strip .wave i:nth-child(1), .panel__strip .wave i:nth-child(5) { height: 9px; }
+.panel__strip .wave i:nth-child(2), .panel__strip .wave i:nth-child(4) { height: 13px; }
+.panel__strip .wave i:nth-child(3) { height: 16px; }
+.panel__strip .timer { position: absolute; right: 15px; top: 50%; translate: 0 -50%; font-size: 13px; }
+
+/* ---- bottom melt over the zoomed Mac ---- */
+.zoom__fade {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  height: 36vh;
+  background: linear-gradient(to bottom, transparent, var(--bg) 80%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Full-size notch panel (morphs out of the notch) ---- */
+.panel-pos {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+  display: flex; justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+}
+.panel {
+  position: relative;
+  width: 365px;
+  pointer-events: none;
+  background: #000;
+  /* concentric with the CTA: 22px pill radius + 16px inset = 38px */
+  border-radius: 0 0 38px 38px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .35);
+}
+/* concave ears flaring into the top edge — same anatomy as NotchShape (8pt) */
+.panel::before, .panel::after {
+  content: '';
+  position: absolute; top: 0;
+  width: 8px; height: 8px;
+}
+.panel::before {
+  right: 100%;
+  background: radial-gradient(circle at 0 100%, transparent 7.5px, #000 8px);
+}
+.panel::after {
+  left: 100%;
+  background: radial-gradient(circle at 100% 100%, transparent 7.5px, #000 8px);
+}
+.panel__strip { position: relative; height: 32px; }
+.panel__body {
+  position: relative;
+  padding: 22px 16px 20px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 18px;
+}
+.panel__copy {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 18px;
+}
+
+/* ---- dialogue beat: transcript bubbles, app anatomy (14px continuous
+       corners, tinted speaker fills, blue Me, tail on the turn's close;
+       Lena/Marco take the app's palette order — green, then orange) ---- */
+.panel__dialog {
+  position: absolute; left: 16px; right: 16px; top: 8px; bottom: 96px;
+  overflow: hidden;
+  /* short fade hugging the very top: turns melt out only as they truly
+     scroll away — a resting first message clears it completely */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12px);
+  mask-image: linear-gradient(to bottom, transparent, #000 12px);
+  pointer-events: none;
+}
+.dlg {
+  display: flex; flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;   /* keeps unscrolled content below the mask ramp */
+}
+.msg {
+  max-width: 82%;
+  display: flex; flex-direction: column; gap: 3px;
+  opacity: 0;
+}
+.msg--them { align-self: flex-start; align-items: flex-start; }
+.msg--me   { align-self: flex-end;   align-items: flex-end; }
+.msg b {
+  font-weight: 400; font-size: 13px; line-height: 1.35;
+  padding: 8px 12px;
+  border-radius: 14px;
+  color: var(--text);
+}
+.msg--them b { border-bottom-left-radius: 4px; }
+.msg--me b   { border-bottom-right-radius: 4px; background: var(--blue); color: #fff; }
+.msg--lena b  { background: rgba(48, 209, 88, .18); }
+.msg--marco b { background: rgba(255, 159, 10, .18); }
+.msg span { font-size: 10.5px; }
+.msg--lena span  { color: #30d158; }
+.msg--marco span { color: #ff9f0a; }
+.msg--me span    { color: var(--text-3); }
+.panel__stone { width: 110px; height: 110px; }
+.panel h1 {
+  margin: 0;
+  font-size: 20px; font-weight: 700;
+  line-height: 1.22; letter-spacing: -.015em;
+  text-align: center; color: #fff;
+}
+.panel__sub {
+  margin: -6px 0 0;
+  font-size: 13px; line-height: 1.45;
+  color: var(--text-2); text-align: center;
+}
+.cta-capsule {
+  margin-top: 12px;
+  width: 100%; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--text); color: #0b0b0f;
+  font-size: 15px; font-weight: 600;
+  border-radius: 22px; text-decoration: none;
+  box-shadow: 0 0 20px rgba(200, 85, 255, .22);
+  transition: transform var(--d-fast) ease, box-shadow var(--d-fast) ease;
+}
+.cta-capsule:hover { transform: translateY(-1px); box-shadow: 0 0 28px rgba(200, 85, 255, .34); }
+
+/* ============ Value props ============ */
+.value {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: clamp(72px, 12vh, 120px) 24px 96px;
+  text-align: center;
+}
+.value h2 {
+  margin: 0;
+  font-size: clamp(24px, 3.4vw, 32px);
+  letter-spacing: -.015em;
+}
+.value__lead {
+  max-width: 620px;
+  margin: 14px auto 48px;
+  font-size: 16px; line-height: 1.55;
+  color: var(--text-2);
+}
+.value__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  text-align: left;
+}
+@media (max-width: 560px) {
+  .value__grid { grid-template-columns: 1fr; }
+}
+.value__grid article {
+  background: #131317;
+  border: 1px solid #222228;
+  border-radius: var(--r-l);
+  padding: 24px 20px;
+}
+.value__grid svg { color: var(--accent); }
+.value__grid h3 { margin: 14px 0 6px; font-size: 15px; }
+.value__grid p { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--text-2); }
+
+/* ============ Footer ============ */
+footer {
+  border-top: 1px solid #1e1e24;
+  padding: 48px 24px 44px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.footer__brand {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 17px;
+  font-family: 'Averia Serif Libre', Georgia, serif;
+  letter-spacing: -.05em;
+}
+.footer__links { display: flex; gap: 28px; font-size: 14px; }
+.footer__links a { color: var(--text-2); text-decoration: none; transition: color var(--d-fast); }
+.footer__links a:hover { color: var(--text); }
+.footer__fine { margin: 0; font-size: 12.5px; color: var(--text-3); }
+
+/* ============ Static fallback (small screens / no-zoom / reduced motion) ============ */
+body.no-zoom .zoom { height: auto; }
+body.no-zoom .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
+body.no-zoom .hero { opacity: 1 !important; transform: none !important; }
+body.no-zoom .macbook { opacity: 1 !important; transform: none !important; }
+body.no-zoom .mb-lid { transform: none !important; }
+body.no-zoom .mb-glow { opacity: 0 !important; }
+body.no-zoom .island { opacity: 1 !important; }
+body.no-zoom .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
+body.no-zoom .panel {
+  margin: 56px auto 0;
+  opacity: 1 !important; pointer-events: auto !important;
+  clip-path: none !important; zoom: 1 !important;
+  width: min(365px, 92vw);
+  border-radius: 24px 24px 38px 38px;
+}
+body.no-zoom .panel__body, body.no-zoom .panel__strip { opacity: 1 !important; }
+body.no-zoom .panel__copy { opacity: 1 !important; }
+body.no-zoom .panel__dialog { display: none; }
+body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
+
+@media (max-width: 768px), (max-height: 600px) {
+  .zoom { height: auto; }
+  .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
+  .hero, .macbook { opacity: 1 !important; transform: none !important; }
+  .mb-lid { transform: none !important; }
+  .mb-glow { opacity: 0 !important; }
+  .island { opacity: 1 !important; }
+  .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
+  .panel {
+    margin: 56px auto 0;
+    opacity: 1 !important; pointer-events: auto !important;
+    clip-path: none !important; zoom: 1 !important;
+    width: min(365px, 92vw);
+    border-radius: 24px 24px 38px 38px;
+  }
+  .panel__body, .panel__strip { opacity: 1 !important; }
+  .panel__copy { opacity: 1 !important; }
+  .panel__dialog { display: none; }
+  .panel::before, .panel::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  /* designed static states: first participant frozen mid-speech */
+  .meet .tile:nth-child(4) .ring { opacity: 1; }
+  .meet .tile:nth-child(4) .mini-wave i { opacity: 1; }
+  /* static stacked layout, same as small screens */
+  .zoom { height: auto; }
+  .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
+  .hero, .macbook { opacity: 1 !important; transform: none !important; }
+  .mb-lid { transform: none !important; }
+  .mb-glow { opacity: 0 !important; }
+  .island { opacity: 1 !important; }
+  .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
+  .panel {
+    margin: 56px auto 0;
+    opacity: 1 !important; pointer-events: auto !important;
+    clip-path: none !important; zoom: 1 !important;
+    width: min(365px, 92vw);
+    border-radius: 24px 24px 38px 38px;
+  }
+  .panel__body, .panel__strip { opacity: 1 !important; }
+  .panel__copy { opacity: 1 !important; }
+  .panel__dialog { display: none; }
+  .panel::before, .panel::after { display: none; }
+}
