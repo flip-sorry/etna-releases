@@ -78,6 +78,7 @@
   var MAC0 = 0.20, MAC1 = 0.37;      // Mac move window
   var MORPH0 = 0.39, MORPH1 = 0.53;  // island → panel morph window
   var DIA0 = 0.56, DIA1 = 1.00;      // copy → dialogue handoff window
+  var LIFT0 = 0.45, LIFT1 = 1.00;    // top pad slowly drains — Mac drifts up
 
   var small = function () { return innerWidth < 768 || innerHeight < 600; };
 
@@ -131,6 +132,7 @@
 
     m = {
       brandTy: brandTy,
+      panelTop: TOP_PAD + (originY - n.height / 2) * sF,
       stW: st.width,
       notchX0: n.left - st.left + n.width / 2,      // island center, sticky coords
       notchY0: n.top - st.top + n.height / 2,
@@ -144,8 +146,6 @@
       r0: (n.width / 285 * 10) * sF / pz
     };
 
-    // the panel's strip top coincides with the island top at the end state
-    panelPos.style.top = (TOP_PAD + (originY - n.height / 2) * sF) + 'px';
   }
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
@@ -180,13 +180,16 @@
     hero.style.opacity = String(1 - h);
     hero.style.transform = 'translateY(' + (-24 * h) + 'px)';
 
-    /* Mac: scale about the notch, settle with its top at TOP_PAD */
+    /* Mac: scale about the notch, settle with its top at TOP_PAD — then
+       the pad slowly drains and the notch ends flush with the viewport */
+    var lift = TOP_PAD * map(p, LIFT0, LIFT1);
     var z = ease(map(p, MAC0, MAC1));
     var s = lerp(1, m.sF, z);
     var tx = z * (m.stW / 2 - m.notchX0);
-    var ty = z * (TOP_PAD + m.originY * m.sF - m.notchY0);
+    var ty = z * (TOP_PAD + m.originY * m.sF - m.notchY0) - lift;
     macbook.style.transform =
       'translate3d(' + tx + 'px,' + ty + 'px,0) scale(' + s + ')';
+    panelPos.style.top = (m.panelTop - lift) + 'px';
     zoomFade.style.opacity = String(z);   // melt the Mac's cut edge as it grows
     aurora.style.opacity = String(z);     // backdrop lights up as the Mac fills
 
@@ -319,4 +322,12 @@
   };
   var qa = location.hash.match(/p=([\d.]+)/);
   if (qa && m) { forceP = clamp01(parseFloat(qa[1])); render(); }
+
+  /* the brand font swap reflows the hero and moves the island — measured
+     geometry goes stale, so re-measure once fonts settle */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      if (m) { measure(); dirty = true; if (forceP !== null) render(); }
+    });
+  }
 })();
