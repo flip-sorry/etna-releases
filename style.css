@@ -531,6 +531,8 @@ footer {
 body.no-zoom .zoom { height: auto; }
 body.no-zoom .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
 body.no-zoom .hero { opacity: 1 !important; transform: none !important; }
+/* the panel's stone is the hero image here — drop the duplicate brand mark */
+body.no-zoom .hero__brand img { display: none; }
 body.no-zoom .macbook { display: none; }
 body.no-zoom .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
 body.no-zoom .panel {
@@ -542,18 +544,14 @@ body.no-zoom .panel {
 }
 body.no-zoom .panel__body, body.no-zoom .panel__strip { opacity: 1 !important; }
 body.no-zoom .panel__copy { opacity: 1 !important; }
-body.no-zoom .panel__dialog {
-  position: static; overflow: visible;
-  -webkit-mask-image: none; mask-image: none;
-}
-body.no-zoom .dlg { transform: none !important; padding-top: 0; }
-body.no-zoom .msg { opacity: 1 !important; transform: none !important; }
+body.no-zoom .panel__dialog { display: none; }
 body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
 
 @media (max-width: 768px), (max-height: 600px) {
   .zoom { height: auto; }
   .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
   .hero { opacity: 1 !important; transform: none !important; }
+  .hero__brand img { display: none; }
   .macbook { display: none; }
   .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
   .panel {
@@ -565,12 +563,7 @@ body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
   }
   .panel__body, .panel__strip { opacity: 1 !important; }
   .panel__copy { opacity: 1 !important; }
-  .panel__dialog {
-    position: static; overflow: visible;
-    -webkit-mask-image: none; mask-image: none;
-  }
-  .dlg { transform: none !important; padding-top: 0; }
-  .msg { opacity: 1 !important; transform: none !important; }
+  .panel__dialog { display: none; }
   .panel::before, .panel::after { display: none; }
 }
 
@@ -588,6 +581,7 @@ body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
   .zoom { height: auto; }
   .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
   .hero { opacity: 1 !important; transform: none !important; }
+  .hero__brand img { display: none; }
   .macbook { display: none; }
   .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
   .panel {
@@ -599,11 +593,6 @@ body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
   }
   .panel__body, .panel__strip { opacity: 1 !important; }
   .panel__copy { opacity: 1 !important; }
-  .panel__dialog {
-    position: static; overflow: visible;
-    -webkit-mask-image: none; mask-image: none;
-  }
-  .dlg { transform: none !important; padding-top: 0; }
-  .msg { opacity: 1 !important; transform: none !important; }
+  .panel__dialog { display: none; }
   .panel::before, .panel::after { display: none; }
 }
