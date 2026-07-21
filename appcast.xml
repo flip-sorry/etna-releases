@@ -3,6 +3,26 @@
     <channel>
         <title>Etna</title>
         <item>
+            <title>1.1</title>
+            <pubDate>Tue, 21 Jul 2026 12:12:57 +0200</pubDate>
+            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<h2>Etna 1.1 (build 3)</h2>
+<p>Live translation, a natural guide voice, and language detection you can tune.</p>
+<ul>
+  <li>Live translation: flip the Translate switch during a meeting and the transcript bubbles appear in your chosen language — translated on this Mac, nothing leaves the device. Your saved note always keeps what was actually spoken.</li>
+  <li>Etna's guide now speaks with a natural recorded voice instead of the system synthesizer.</li>
+  <li>Choose which languages automatic detection listens for (up to four, in your order of preference) in Settings → Transcription.</li>
+  <li>Language detection is harder to fool: similar-sounding languages no longer split the vote.</li>
+  <li>Updates got quieter: a new version shows as a gentle hint in the notch and never interrupts a meeting in progress.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.1-b3/Etna-1.1-b3.dmg" length="26148122" type="application/octet-stream" sparkle:edSignature="r9jmv7wn4gLFKnJhHUw7FxkvoNTtnGY749NmY+kp84Nzm99TNc4j2R7DS2B+J1w8WbyVwHlyRBfkmBA2jII/Cg=="/>
+        </item>
+        <item>
             <title>1.0</title>
             <pubDate>Mon, 20 Jul 2026 22:04:02 +0200</pubDate>
             <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
