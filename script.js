@@ -17,7 +17,7 @@
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (reduced) {
-    document.querySelectorAll('.meet video').forEach(function (v) {
+    document.querySelectorAll('.meet video, .hero__orb').forEach(function (v) {
       v.removeAttribute('autoplay');
       v.pause();
     });
@@ -59,6 +59,7 @@
   });
   var zoomFade   = document.getElementById('zoomFade');
   var aurora     = document.getElementById('aurora');
+  var nudge      = document.getElementById('scrollNudge');
   var islandBits = island.querySelectorAll('.wave, .timer');
   var lid  = macbook.querySelector('.mb-lid');
   var glow = macbook.querySelector('.mb-glow');
@@ -84,8 +85,8 @@
 
   if (reduced || small()) {
     document.body.classList.add('no-zoom');
-    // static layout hides the Mac — abort the meeting-video downloads
-    document.querySelectorAll('.meet video').forEach(function (v) {
+    // static layout hides the Mac and the brand mark — abort the video downloads
+    document.querySelectorAll('.meet video, .hero__orb').forEach(function (v) {
       v.removeAttribute('autoplay');
       v.removeAttribute('src');
       v.load();
@@ -167,6 +168,8 @@
       : 'rotateX(' + (-LID_CLOSED * (1 - l)) + 'deg)';
     /* pure black at rest: even the silhouette waits for the first scroll */
     macbook.style.opacity = String(map(p, 0.005, 0.05));
+    /* the nudge did its job the moment the user scrolls */
+    nudge.style.opacity = String(1 - map(p, 0.005, 0.05));
     var crack = map(l, 0, 0.1);
     glow.style.opacity = String(crack * (1 - map(l, 0.35, 0.9)));
     /* the wash is a grazing-angle effect — gone once the screen is readable */
@@ -269,6 +272,7 @@
     islandBits.forEach(function (el) { el.style.opacity = ''; });
     zoomFade.style.opacity = '';
     aurora.style.opacity = '';
+    nudge.style.opacity = '';
     lid.style.transform = '';
     glow.style.opacity = '';
     veil.style.opacity = '';

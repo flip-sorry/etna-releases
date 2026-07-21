@@ -64,7 +64,13 @@ a { color: inherit; }
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   transform-origin: 50% 0;
 }
-.hero__brand img { width: 48px; height: 48px; }
+/* animated stone loop; the radial mask melts the clip's dark vignette
+   into the page background so the rectangle never reads as a box */
+.hero__orb {
+  width: 48px; height: 48px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 84%, transparent 100%);
+}
 .hero__brand span {
   font-family: 'Averia Serif Libre', Georgia, 'Times New Roman', serif;
   font-weight: 700;
@@ -77,19 +83,98 @@ a { color: inherit; }
   color: #fff;
 }
 
-/* ---- aurora behind the zoomed Mac (fades in with the zoom) ---- */
+/* ---- scroll nudge (initial screen only) ----
+   A thin purple thread below the resting lockup: a short comet line —
+   bright leading edge, fading tail, the wordmark's lavender melting into
+   the app purple — falls through a masked track with a scroll-flick
+   easing, rests, repeats. JS fades the whole element out on the first
+   scroll. Its base transform parks the line above the track, so the
+   global reduced-motion animation kill leaves it clipped away invisibly;
+   the static layouts also hide it outright. */
+.scroll-nudge {
+  position: absolute; left: 50%; top: 68%; z-index: 2;
+  width: 2px; height: 64px;
+  margin-left: -1px;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 25%, #000 75%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 25%, #000 75%, transparent);
+}
+.scroll-nudge::before {
+  content: '';
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 26px;
+  border-radius: 1px;
+  background: linear-gradient(180deg,
+    transparent, rgba(201, 182, 233, .85) 55%, rgba(191, 90, 242, .95));
+  transform: translateY(-26px);
+  animation: nudge-fall 3s cubic-bezier(.45, .05, .2, 1) .8s infinite;
+}
+@keyframes nudge-fall {
+  0%   { transform: translateY(-26px); }
+  60%  { transform: translateY(64px); }
+  100% { transform: translateY(64px); }
+}
+
+/* ---- aurora behind the zoomed Mac (fades in with the zoom) ----
+   Colors are the app's own transcript palette (macOS dark-mode system
+   colors): speaker green/orange/purple/teal/pink/indigo + the Me-bubble
+   accent blue #0A84FF. Three layers hold three permutations of that
+   palette; a slow counter-phased crossfade (plus a slight drift on the
+   pseudo layers) keeps the sky continuously morphing while every hue on
+   screen stays one the app actually uses. JS drives the CONTAINER's
+   opacity with scroll, so the animation lives on ::before/::after only.
+   Reduced motion: the global animation kill freezes this at the base
+   layer. */
 .zoom__aurora {
   position: absolute; inset: 0; z-index: 0;
-  /* volcanic sweep: teal → blue → violet → magma pink → ember */
+  /* Apple-hero construction: THREE huge overlapping fields per layer
+     (cool anchor left, wide wash center, warm anchor right), centers
+     parked above the frame so only the long soft tail is visible, with
+     a mid alpha stop smoothing the falloff. The container mask melts
+     everything downward into black — no hard band edge. */
   background:
-    radial-gradient(36% 24% at 10% 5%, rgba(45, 212, 200, .34), transparent 70%),
-    radial-gradient(42% 28% at 31% 0, rgba(80, 130, 255, .4), transparent 72%),
-    radial-gradient(48% 30% at 52% 0, rgba(175, 90, 255, .46), transparent 72%),
-    radial-gradient(40% 26% at 73% 2%, rgba(255, 80, 160, .38), transparent 70%),
-    radial-gradient(36% 24% at 91% 6%, rgba(255, 150, 70, .34), transparent 70%),
-    radial-gradient(75% 42% at 50% 8%, rgba(120, 70, 220, .18), transparent 78%);
+    radial-gradient(55% 90% at 12% -18%, rgba(10, 132, 255, .30), rgba(10, 132, 255, .10) 45%, transparent 72%),
+    radial-gradient(70% 100% at 50% -25%, rgba(191, 90, 242, .22), rgba(191, 90, 242, .08) 50%, transparent 75%),
+    radial-gradient(55% 90% at 88% -18%, rgba(255, 55, 95, .26), rgba(255, 55, 95, .09) 45%, transparent 72%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 20%, rgba(0, 0, 0, .55) 45%, transparent 78%);
+  mask-image: linear-gradient(180deg, #000 0, #000 20%, rgba(0, 0, 0, .55) 45%, transparent 78%);
   opacity: 0;
   pointer-events: none;
+}
+/* oversized so the drift never uncovers an edge (.zoom__sticky clips) */
+.zoom__aurora::before,
+.zoom__aurora::after {
+  content: '';
+  position: absolute; inset: -6%;
+  opacity: 0;
+  animation: 24s ease-in-out infinite;
+}
+.zoom__aurora::before {
+  background:
+    radial-gradient(55% 90% at 12% -18%, rgba(191, 90, 242, .28), rgba(191, 90, 242, .09) 45%, transparent 72%),
+    radial-gradient(70% 100% at 50% -25%, rgba(255, 55, 95, .18), rgba(255, 55, 95, .07) 50%, transparent 75%),
+    radial-gradient(55% 90% at 88% -18%, rgba(255, 159, 10, .22), rgba(255, 159, 10, .08) 45%, transparent 72%);
+  animation-name: aurora-warm;
+}
+.zoom__aurora::after {
+  background:
+    radial-gradient(55% 90% at 12% -18%, rgba(64, 200, 224, .26), rgba(64, 200, 224, .09) 45%, transparent 72%),
+    radial-gradient(70% 100% at 50% -25%, rgba(10, 132, 255, .18), rgba(10, 132, 255, .07) 50%, transparent 75%),
+    radial-gradient(55% 90% at 88% -18%, rgba(191, 90, 242, .24), rgba(191, 90, 242, .08) 45%, transparent 72%);
+  animation-name: aurora-cool;
+}
+@keyframes aurora-warm {
+  0%   { opacity: 0; transform: translate3d(0, 0, 0); }
+  33%  { opacity: 1; transform: translate3d(1.5%, 0, 0); }
+  66%  { opacity: 0; transform: translate3d(3%, 0, 0); }
+  100% { opacity: 0; transform: translate3d(0, 0, 0); }
+}
+@keyframes aurora-cool {
+  0%   { opacity: 0; transform: translate3d(0, 0, 0); }
+  33%  { opacity: 0; transform: translate3d(-3%, 0, 0); }
+  66%  { opacity: 1; transform: translate3d(-1.5%, 0, 0); }
+  100% { opacity: 0; transform: translate3d(0, 0, 0); }
 }
 
 /* ---- MacBook mock ---- */
@@ -532,7 +617,8 @@ body.no-zoom .zoom { height: auto; }
 body.no-zoom .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
 body.no-zoom .hero { opacity: 1 !important; transform: none !important; }
 /* the panel's stone is the hero image here — drop the duplicate brand mark */
-body.no-zoom .hero__brand img { display: none; }
+body.no-zoom .hero__brand img, body.no-zoom .hero__brand video { display: none; }
+body.no-zoom .scroll-nudge { display: none; }
 body.no-zoom .macbook { display: none; }
 body.no-zoom .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
 body.no-zoom .panel {
@@ -551,7 +637,8 @@ body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
   .zoom { height: auto; }
   .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
   .hero { opacity: 1 !important; transform: none !important; }
-  .hero__brand img { display: none; }
+  .hero__brand img, .hero__brand video { display: none; }
+  .scroll-nudge { display: none; }
   .macbook { display: none; }
   .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
   .panel {
@@ -581,7 +668,8 @@ body.no-zoom .panel::before, body.no-zoom .panel::after { display: none; }
   .zoom { height: auto; }
   .zoom__sticky { position: static; height: auto; overflow: visible; padding-bottom: 24px; }
   .hero { opacity: 1 !important; transform: none !important; }
-  .hero__brand img { display: none; }
+  .hero__brand img, .hero__brand video { display: none; }
+  .scroll-nudge { display: none; }
   .macbook { display: none; }
   .panel-pos { position: static; display: block; visibility: visible; pointer-events: auto; }
   .panel {

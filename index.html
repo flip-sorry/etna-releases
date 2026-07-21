@@ -26,10 +26,14 @@
 
       <header class="hero" id="hero">
         <div class="hero__brand">
-          <img src="assets/etna-stone.png" alt="" width="48" height="48">
+          <video class="hero__orb" src="assets/etna-stone.mp4" poster="assets/etna-stone-poster.jpg"
+                 autoplay muted loop playsinline width="48" height="48"></video>
           <span>Etna</span>
         </div>
       </header>
+
+      <!-- scroll nudge: a purple thread falls below the lockup at rest -->
+      <div class="scroll-nudge" id="scrollNudge" aria-hidden="true"></div>
 
       <!-- aurora behind the zoomed Mac -->
       <div class="zoom__aurora" id="aurora" aria-hidden="true"></div>
@@ -173,7 +177,7 @@
     <a href="https://github.com/flip-sorry/etna-releases">Releases</a>
   </nav>
   <p class="footer__fine">Free during beta · macOS 26 or later · Apple Silicon · Signed &amp; notarized</p>
-  <p class="footer__fine">© 2026 Iurii Aliavdin</p>
+  <p class="footer__fine">© 2026 Jury Alyavdin</p>
 </footer>
 
 <script src="script.js"></script>
