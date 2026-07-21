@@ -51,11 +51,12 @@
   var dialogEl   = panel.querySelector('.panel__dialog');
   var dlgScroll  = document.getElementById('dlgScroll');
   var msgs       = panel.querySelectorAll('.panel__dialog .msg');
-  var msgBubbles = [], msgTexts = [];
+  var msgBubbles = [], msgTexts = [], msgDots = [];
   msgs.forEach(function (el) {
-    var b = el.querySelector('b');
-    msgBubbles.push(b);
-    msgTexts.push(b.textContent);
+    var txt = el.querySelector('.msg__txt');
+    msgBubbles.push(txt);
+    msgTexts.push(txt.textContent);
+    msgDots.push(el.querySelector('.msg__dots'));
   });
   var zoomFade   = document.getElementById('zoomFade');
   var aurora     = document.getElementById('aurora');
@@ -73,13 +74,15 @@
   var PANEL_VH = 0.62;       // opened panel ≈ 62% of the viewport height
   var PANEL_W = 365;         // panel layout width (app pt)
   var LID_CLOSED = 90;       // hero lid angle — fully shut, dark until scroll
-  /* the dialogue owns nearly half the 780vh track, so each streamed turn
-     gets ~30vh of scroll — deliberately low scroll-sensitivity */
-  var LID0 = 0.00, LID1 = 0.18;      // lid-opening window
-  var MAC0 = 0.20, MAC1 = 0.37;      // Mac move window
-  var MORPH0 = 0.39, MORPH1 = 0.53;  // island → panel morph window
-  var DIA0 = 0.56, DIA1 = 1.00;      // copy → dialogue handoff window
-  var LIFT0 = 0.45, LIFT1 = 1.00;    // top pad slowly drains — Mac drifts up
+  /* the dialogue owns the back half of the 1040vh track (the earlier
+     windows below keep the same vh length they had in the old 780vh
+     track — only the dialogue's share grew — so each streamed turn now
+     gets ~50vh of scroll, plus a typing-indicator beat before its text */
+  var LID0 = 0.00, LID1 = 0.13;      // lid-opening window
+  var MAC0 = 0.15, MAC1 = 0.28;      // Mac move window
+  var MORPH0 = 0.29, MORPH1 = 0.40;  // island → panel morph window
+  var DIA0 = 0.42, DIA1 = 1.00;      // copy → dialogue handoff window
+  var LIFT0 = 0.34, LIFT1 = 1.00;    // top pad slowly drains — Mac drifts up
 
   var small = function () { return innerWidth < 768 || innerHeight < 600; };
 
@@ -227,18 +230,31 @@
       var cOut = map(d, 0, 0.12);
       panelCopy.style.opacity = String(1 - cOut);
       panelCopy.style.transform = 'translateY(' + (10 * cOut) + 'px)';
-      /* turns stream in one at a time: the bubble pops, then its text
-         types on with the scroll (like the app's live partials); the feed
-         follows the live edge once it outgrows the panel */
+      /* turns stream in one at a time: the bubble pops in showing a
+         typing indicator (three dots, like the app catching up on a live
+         partial), which then hands off to the text typing on with the
+         scroll; the feed follows the live edge once it outgrows the panel */
       var start = 0.16;   // bubbles begin only after the copy is fully out
       var slot = (1 - start) / msgs.length;
+      var DOTS = 0.4;     // fraction of each turn's slot spent as "typing…"
       var off = 0;
       msgs.forEach(function (el, i) {
         var t = map(d, start + i * slot, start + (i + 1) * slot);
-        el.style.opacity = String(map(t, 0, 0.15));
-        el.style.transform = 'translateY(' + (6 * (1 - map(t, 0, 0.3))) + 'px)';
-        var want = msgTexts[i].slice(0,
-          Math.round(msgTexts[i].length * map(t, 0.08, 0.96)));
+        el.style.opacity = String(map(t, 0, 0.1));
+        el.style.transform = 'translateY(' + (6 * (1 - map(t, 0, 0.25))) + 'px)';
+
+        var dots = msgDots[i];
+        var showDots = t > 0 && t < DOTS;
+        var dotsDisplay = showDots ? 'inline-flex' : 'none';
+        if (dots.style.display !== dotsDisplay) dots.style.display = dotsDisplay;
+        if (showDots) {
+          dots.style.opacity = String(map(t, 0.03, 0.15) * (1 - map(t, DOTS - 0.05, DOTS)));
+        }
+
+        /* text picks up exactly where the dots leave off — no gap where
+           neither is showing, which read as the bubble emptying out */
+        var want = t < DOTS ? '' : msgTexts[i].slice(0,
+          Math.round(msgTexts[i].length * map(t, DOTS, 1)));
         if (msgBubbles[i].textContent !== want) msgBubbles[i].textContent = want;
         if (t > 0) {
           var need = el.offsetTop + el.offsetHeight - dialogEl.clientHeight;
@@ -267,6 +283,7 @@
     msgs.forEach(function (el, i) {
       el.style.opacity = ''; el.style.transform = '';
       msgBubbles[i].textContent = msgTexts[i];
+      if (msgDots[i]) { msgDots[i].style.display = ''; msgDots[i].style.opacity = ''; }
     });
     dlgScroll.style.transform = '';
     islandBits.forEach(function (el) { el.style.opacity = ''; });

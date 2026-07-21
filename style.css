@@ -44,7 +44,10 @@ a { color: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ============ Zoom section (hero + pinned choreography) ============ */
-.zoom { height: 780vh; }
+/* 1040vh: the dialogue tail owns the extra 260vh over the old 780vh track —
+   lid/Mac/morph keep their original scroll-pixel pacing (see script.js),
+   only the streamed turns get more scroll per message */
+.zoom { height: 1040vh; }
 .zoom__sticky {
   position: sticky; top: 0;
   height: 100vh; overflow: clip;
@@ -524,10 +527,27 @@ a { color: inherit; }
   border-radius: 14px;
   color: var(--text);
 }
+/* .msg__txt is an <i> (see .msg__dots note below) purely to dodge the
+   name-label span selectors — cancel the tag's own italic default */
+.msg__txt { font-style: normal; }
 .msg--them b { border-bottom-left-radius: 4px; }
 .msg--me b   { border-bottom-right-radius: 4px; background: var(--blue); color: #fff; }
 .msg--lena b  { background: rgba(48, 209, 88, .18); }
 .msg--marco b { background: rgba(255, 159, 10, .18); }
+/* typing indicator: stands in for the bubble's text until its turn arrives,
+   swapped for .msg__txt by script.js (never both visible at once) */
+.msg__dots { display: none; align-items: center; gap: 3px; height: 13px; }
+.msg__dots i {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor; opacity: .35;
+  animation: msgDotBounce 1.2s ease-in-out infinite;
+}
+.msg__dots i:nth-child(2) { animation-delay: .15s; }
+.msg__dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes msgDotBounce {
+  0%, 60%, 100% { transform: translateY(0);   opacity: .35; }
+  30%           { transform: translateY(-3px); opacity: .9; }
+}
 .msg span { font-size: 10.5px; }
 .msg--lena span  { color: #30d158; }
 .msg--marco span { color: #ff9f0a; }
