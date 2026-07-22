@@ -3,6 +3,27 @@
     <channel>
         <title>Etna</title>
         <item>
+            <title>1.2</title>
+            <pubDate>Wed, 22 Jul 2026 12:45:24 +0200</pubDate>
+            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<h2>Etna 1.2 (build 4)</h2>
+<p>A living map of the people you meet, effortless back-to-back meetings, and a feedback channel.</p>
+<ul>
+  <li>Stakeholder map: Etna keeps a note per person you meet regularly in a People/ folder of your vault — their meetings, action items, groups, and "often seen with" links — so Obsidian's graph shows your relationship network. Your own edits are never touched.</li>
+  <li>Back-to-back meetings run themselves: when the next meeting starts while the last one is still summarizing, Etna hands off and begins recording within seconds. Deferred auto-record catches up the moment the app is free.</li>
+  <li>Over-split speakers can now be merged in the "who said what" review — pick "Merge into" from a row's menu.</li>
+  <li>What's New (this window!) opens once after each update, and lives in Settings → General → Updates.</li>
+  <li>Send Feedback… in the ⋯ menu: a pre-filled email to support, with an optional diagnostics report that never includes meeting content.</li>
+  <li>Optional anonymous usage analytics — strictly opt-in, off unless you say yes, and never anything you said, wrote, or named.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.2-b4/Etna-1.2-b4.dmg" length="26370572" type="application/octet-stream" sparkle:edSignature="JKfrYkszB+S+gn/Oor2MxqW4UddPMtr0pLxGK/BJuZuKjPe4qYu+XrGi+O/9Wz83DqgOm8DLrfyf8IUAefGlAA=="/>
+        </item>
+        <item>
             <title>1.1</title>
             <pubDate>Tue, 21 Jul 2026 12:12:57 +0200</pubDate>
             <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
