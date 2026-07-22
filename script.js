@@ -9,8 +9,9 @@
      p 0.55–0.75  the notch island morphs into the panel: a clip-path grows
                   from the island's exact rect to the full panel (bottom
                   radius 10 → 38), content fades in
-     p 0.82–0.97  the copy hands off to the transcript dialogue (bubbles
-                  stagger in, app-style); the Download capsule stays put */
+     p 0.42–1.00  the copy hands off to the transcript dialogue: the
+                  headline exits fast, then bubbles stream in one turn at
+                  a time, linear in scroll; the Download capsule stays put */
 (function () {
   'use strict';
 
@@ -225,18 +226,22 @@
       panelBody.style.opacity  = String(map(f, 0.45, 1));
 
       /* copy → dialogue: the headline block exits COMPLETELY first, then
-         bubbles start on plain black — the two never share the stage */
-      var d = ease(map(p, DIA0, DIA1));
-      var cOut = map(d, 0, 0.12);
+         bubbles start on plain black — the two never share the stage.
+         d is LINEAR in scroll: easing the whole window made the headline
+         exit glacial (flat head of the curve) while mid-conversation
+         bubbles zipped by (steep middle). Sequencing is linear; each
+         element eases its own micro-animation instead. */
+      var d = map(p, DIA0, DIA1);
+      var cOut = ease(map(d, 0, 0.05));   // quick, decisive exit (~30vh)
       panelCopy.style.opacity = String(1 - cOut);
       panelCopy.style.transform = 'translateY(' + (10 * cOut) + 'px)';
       /* turns stream in one at a time: the bubble pops in showing a
          typing indicator (three dots, like the app catching up on a live
          partial), which then hands off to the text typing on with the
          scroll; the feed follows the live edge once it outgrows the panel */
-      var start = 0.16;   // bubbles begin only after the copy is fully out
+      var start = 0.07;   // a short black beat after the copy is out
       var slot = (1 - start) / msgs.length;
-      var DOTS = 0.4;     // fraction of each turn's slot spent as "typing…"
+      var DOTS = 0.45;    // fraction of each turn's slot spent as "typing…"
       var off = 0;
       msgs.forEach(function (el, i) {
         var t = map(d, start + i * slot, start + (i + 1) * slot);
