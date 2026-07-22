@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — Etna</title>
+<meta name="description" content="Etna is private by architecture: on-device transcription, notes in your own Obsidian vault, no servers, no account. This page is the complete account of what Etna does with data, including the full opt-in analytics vocabulary.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacy — Etna">
+<meta property="og:description" content="On-device transcription, notes in your own vault, no servers. The complete account of what Etna does with data — including every analytics signal it can ever send.">
+<meta property="og:image" content="https://etnanote.com/assets/og-image.png">
+<meta property="og:url" content="https://etnanote.com/privacy">
+<link rel="canonical" href="https://etnanote.com/privacy">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ---- privacy page (scoped; tokens come from style.css) ---- */
+  .topbar {
+    display: flex; align-items: center; justify-content: center;
+    padding: 26px 24px 10px;
+  }
+  .topbar a {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+    font-family: 'Averia Serif Libre', Georgia, serif;
+    font-weight: 700; font-size: 21px; letter-spacing: -0.02em;
+  }
+  .legal {
+    max-width: 780px; margin: 0 auto;
+    padding: 28px 24px 96px;
+  }
+  .legal h1 {
+    font-family: 'Averia Serif Libre', Georgia, serif;
+    font-weight: 700; font-size: 38px; letter-spacing: -0.02em;
+    margin: 18px 0 10px;
+    background: linear-gradient(115deg, #cdb9e8 0%, #fff 55%, #cdb9e8 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .legal .updated { margin: 0 0 34px; font-size: 13px; color: var(--text-3); }
+  .legal h2 {
+    font-family: 'Averia Serif Libre', Georgia, serif;
+    font-weight: 700; font-size: 23px; letter-spacing: -0.01em;
+    margin: 52px 0 14px; color: var(--text);
+  }
+  .legal h3 { font-size: 16px; margin: 30px 0 8px; color: var(--text); }
+  .legal p, .legal li { font-size: 15.5px; line-height: 1.68; color: var(--text-2); }
+  .legal p { margin: 0 0 14px; }
+  .legal ul { margin: 0 0 14px; padding-left: 22px; }
+  .legal li { margin-bottom: 8px; }
+  .legal li::marker { color: var(--accent); }
+  .legal strong { color: var(--text); font-weight: 600; }
+  .legal .lead { font-size: 17.5px; color: var(--text); }
+  .legal code {
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+    font-size: .86em;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.07);
+    padding: 1px 5px; border-radius: 5px;
+    color: #e6ddf5; white-space: nowrap;
+  }
+  .table-scroll {
+    overflow-x: auto; margin: 18px 0 8px;
+    border: 1px solid #1e1e24; border-radius: var(--r-m);
+    -webkit-overflow-scrolling: touch;
+  }
+  .legal table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 640px; }
+  .legal th {
+    text-align: left; font-weight: 600; color: var(--text-3);
+    font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em;
+    padding: 12px 14px; border-bottom: 1px solid #1e1e24;
+    background: rgba(255,255,255,.02);
+  }
+  .legal td {
+    padding: 11px 14px; vertical-align: top;
+    border-bottom: 1px solid #17171c;
+    color: var(--text-2); line-height: 1.55;
+  }
+  .legal tr:last-child td { border-bottom: none; }
+  .legal td:first-child code { color: #d9c9f2; }
+  .tnote { font-size: 13px; color: var(--text-3); margin-top: 10px; }
+</style>
+</head>
+<body class="no-zoom">
+
+<div class="topbar">
+  <a href="/">
+    <img src="assets/etna-stone.png" alt="" width="34" height="34">
+    <span>Etna</span>
+  </a>
+</div>
+
+<main class="legal">
+  <h1>Privacy</h1>
+  <p class="updated">Last updated July 23, 2026 · Applies to Etna 1.3 and later</p>
+
+  <p class="lead">Etna is private by architecture, not by promise. There is no Etna cloud,
+  no account, and no server of ours anywhere. This page is the complete account of what
+  Etna does with data — including, below, the <em>entire</em> vocabulary of the optional
+  anonymous analytics: every signal the app can ever send.</p>
+
+  <h2>The short version</h2>
+  <ul>
+    <li><strong>Your meetings never leave your Mac.</strong> Recording, transcription, and
+      speaker separation run entirely on-device.</li>
+    <li><strong>Your notes are your files.</strong> Transcripts, summaries, and pre-meeting
+      notes are plain markdown written straight into your Obsidian vault on your disk.</li>
+    <li><strong>Cloud summaries are optional and use your own API key.</strong> A transcript
+      is sent to an AI provider only if you configured that provider yourself — directly
+      from your Mac, never through us.</li>
+    <li><strong>Analytics are strictly opt-in.</strong> Off by default, anonymous, a closed
+      list of counting signals — and you can turn them off at any time in
+      <strong>Settings&nbsp;→&nbsp;General&nbsp;→&nbsp;Privacy</strong>.</li>
+  </ul>
+
+  <h2>What stays on your Mac</h2>
+  <p>Live audio from your microphone and from other apps (Zoom, Meet, Teams…) is processed
+  on-device by Apple's speech models and on-device speaker separation. Transcripts,
+  summaries, pre-meeting notes, and the stakeholder pages in your <code>People/</code>
+  folder are markdown files in your vault — readable by anything, locked to nothing, and
+  never uploaded by Etna.</p>
+  <p>Voice profiles that let Etna recognize a named speaker across meetings are stored
+  locally on your Mac.</p>
+  <p><strong>Calendar data never leaves this Mac.</strong> Etna reads your calendar to
+  detect meetings. Invite email addresses may be read transiently to infer a company label
+  for a stakeholder page (e.g. "PandaDoc"); the addresses themselves are never written to
+  your vault, never written to disk, and never sent anywhere. Even the opt-in analytics
+  never use calendar data — participant counts, for example, come only from voices
+  actually observed in the meeting.</p>
+  <p>Live translation runs on-device via Apple's Translation framework. Speech,
+  speaker-separation, and translation models are downloaded once when needed; those
+  download requests carry no user data.</p>
+
+  <h2>Optional cloud summaries — your key, your choice</h2>
+  <p>By default, meeting summaries run on Apple&nbsp;Intelligence, on-device and free. If
+  you add your own API key for Claude (Anthropic), OpenAI, or Gemini (Google) and select
+  it as your summarizer, the meeting transcript is sent to that provider to produce the
+  summary. That request goes directly from your Mac to the provider under your key and
+  their terms — Etna never sees, stores, or proxies it. No key configured, nothing is
+  ever sent.</p>
+
+  <h2>Anonymous usage analytics — opt-in, with the full vocabulary</h2>
+  <p>Etna can send anonymous usage statistics through
+  <a href="https://telemetrydeck.com">TelemetryDeck</a> to help us understand which
+  features matter and which errors happen in the wild. This is <strong>strictly
+  opt-in</strong>:</p>
+  <ul>
+    <li>You are asked once — at the end of onboarding, or once in the app's panel for
+      existing installs. Until you agree, the analytics library is not even initialized
+      and zero network requests are made.</li>
+    <li><strong>Declining sends nothing — not even the decline itself.</strong> The
+      opt-out rate is invisible to us by design.</li>
+    <li><strong>You can opt out at any time</strong> in
+      <strong>Settings&nbsp;→&nbsp;General&nbsp;→&nbsp;Privacy → "Share anonymous usage
+      statistics."</strong> Turning it off stops sending immediately and deletes the
+      random install identifier; if you ever opt back in, you start as a brand-new
+      anonymous install with no continuity to the old one.</li>
+    <li>The identity attached to signals is a random per-install UUID, salted and hashed
+      before transmission. No name, no email, no account — there is nothing to link it to.</li>
+  </ul>
+
+  <h3>What a signal can and cannot contain</h3>
+  <ul>
+    <li>Closed vocabularies only: fixed category names, bucketed ranges, and true/false —
+      never free-form text.</li>
+    <li>Durations and counts are always buckets (e.g. "15–30&nbsp;min"), never exact values.</li>
+    <li><strong>Never sent:</strong> audio, transcripts, summaries, meeting titles,
+      filenames, vault or folder paths, people's names, calendar data, API keys, or error
+      message text (error <em>category</em> names only).</li>
+  </ul>
+  <p>Each signal is automatically accompanied by app version and build, OS version, device
+  model and architecture, and locale — nothing else.</p>
+
+  <h3>The complete signal table</h3>
+  <p>This table is the entire vocabulary — the app cannot send a signal that is not listed
+  here. It is published from the same file that gates our development process: a feature
+  that adds a signal must update this table in the same change.</p>
+
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Signal</th><th>Parameters</th><th>Fired when</th></tr></thead>
+    <tbody>
+      <tr><td><code>App.launched</code></td><td><code>autoRecord</code>, <code>autoDetectLanguage</code>, <code>summaryRouting</code> (cloud/local), <code>translationEnabled</code>, <code>detectionEnabled</code>, <code>peopleNotes</code></td><td>The app starts</td></tr>
+      <tr><td><code>Consent.granted</code></td><td><code>source</code> (onboarding/settings/prompt)</td><td>You turn analytics on</td></tr>
+      <tr><td><code>Onboarding.completed</code></td><td>—</td><td>Onboarding finishes</td></tr>
+      <tr><td><code>Guide.completed</code></td><td>—</td><td>The first-run guide plays to its natural end</td></tr>
+      <tr><td><code>Vault.configured</code></td><td>—</td><td>A vault folder is chosen successfully</td></tr>
+      <tr><td><code>Meeting.started</code></td><td><code>origin</code> (manual/autoDetection), <code>sourceApp</code> (meeting-app name from a fixed registry, or none), <code>engine</code> (sortformer/classic)</td><td>Recording begins</td></tr>
+      <tr><td><code>Meeting.finished</code></td><td><code>durationBucket</code>, <code>participantBucket</code> (observed speakers only), <code>languages</code> (e.g. <code>en+ru</code>), <code>summaryEngine</code> (appleIntelligence/anthropic/openai/google/none), <code>summaryModel</code> (catalog model ID / appleIntelligence / custom / none), <code>summaryLatencyBucket</code> (&lt;5s … &gt;3m), <code>summaryOutcome</code> (ok/failed/empty), <code>transcriptionOutcome</code> (ok/partial), <code>translationUsed</code>, <code>origin</code>, <code>isFirst</code></td><td>A meeting completes</td></tr>
+      <tr><td><code>Meeting.discarded</code></td><td><code>durationBucket</code></td><td>You discard a recording</td></tr>
+      <tr><td><code>Meeting.split</code></td><td><code>trigger</code> (calendar/appChange), <code>decision</code> (auto/accepted/dismissed)</td><td>A back-to-back meeting boundary is handled</td></tr>
+      <tr><td><code>Meeting.autoRecordCancelled</code></td><td>—</td><td>You cancel a pending auto-record</td></tr>
+      <tr><td><code>Error.occurred</code></td><td><code>code</code> (error category name, <code>other</code>, <code>emptyMeeting</code>), <code>context</code> (start/recording/finalize/organizer)</td><td>An operation fails</td></tr>
+      <tr><td><code>Organizer.suggestion</code></td><td><code>kind</code> (folder/restructure), <code>action</code> (applied/snoozed/undone)</td><td>You act on an organizer suggestion</td></tr>
+      <tr><td><code>Speakers.namesApplied</code></td><td><code>countBucket</code>, <code>surface</code> (panel/review/popover)</td><td>You save speaker names (closing without changes sends nothing)</td></tr>
+      <tr><td><code>Speakers.merged</code></td><td>—</td><td>You merge over-split speaker rows</td></tr>
+      <tr><td><code>Notch.opened</code></td><td>—</td><td>The notch panel opens</td></tr>
+      <tr><td><code>Scratchpad.opened</code></td><td>—</td><td>You open pre-meeting notes (closing sends nothing)</td></tr>
+      <tr><td><code>Translation.enabled</code></td><td>—</td><td>Live translation is switched on</td></tr>
+      <tr><td><code>Feedback.composed</code></td><td><code>diagnosticsIncluded</code></td><td>A feedback email draft is created</td></tr>
+      <tr><td><code>WhatsNew.opened</code></td><td><code>source</code> (autoOpen/settings)</td><td>The release-notes window opens</td></tr>
+      <tr><td><code>PeopleNotes.written</code></td><td><code>createdBucket</code>, <code>updatedBucket</code> (bucketed page counts — never who)</td><td>Stakeholder pages are updated after a meeting</td></tr>
+      <tr><td><code>PeopleNotes.toggled</code></td><td><code>enabled</code></td><td>The stakeholder map is turned on or off</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="tnote">Current as of Etna 1.3 (build 5). Signal names are stable — a rename is
+  treated as a breaking schema change.</p>
+
+  <h3>Deliberately not tracked</h3>
+  <p>Some things are untracked as a decision, not an omission:</p>
+  <ul>
+    <li>Declining or revoking analytics consent — the opt-out rate is invisible by design;
+      that is the trade for trust.</li>
+    <li>The languages suggested at first launch from your keyboard layouts — locale lists
+      are an open vocabulary and never ride a signal.</li>
+    <li>Scratchpad formatting actions, tab switches, Settings opens, notch closes,
+      What's-New reading depth — noise over signal.</li>
+    <li>Anything per-keystroke or per-render. Signals fire on committed actions and final
+      outcomes only.</li>
+    <li>The stakeholder map's content — names, meetings, inferred organization labels are
+      vault markdown on your Mac, never telemetry.</li>
+  </ul>
+
+  <h2>Software updates</h2>
+  <p>Etna checks for updates once a day by fetching a static file (the Sparkle appcast)
+  from this site. The request carries no account, no identifier, and no system profile —
+  it is the same anonymous fetch your browser makes loading this page.</p>
+
+  <h2>Feedback emails</h2>
+  <p>"Send Feedback…" opens a draft in <em>your</em> email client — nothing is sent until
+  you press send, and you see exactly what is in it. The optional diagnostics report is
+  plain text you can read: app and OS versions, an allowlisted snapshot of settings, and
+  the current run's app logs — with redaction enforced by automated tests. It never
+  contains meeting content, names, file paths, or API keys.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about any of this? Write to
+  <a href="mailto:mail@j-alyavdin.com">mail@j-alyavdin.com</a>.</p>
+</main>
+
+<footer>
+  <div class="footer__brand">
+    <img src="assets/etna-stone.png" alt="" width="28" height="28">
+    <span>Etna</span>
+  </div>
+  <nav class="footer__links">
+    <a href="https://github.com/flip-sorry/etna-releases/releases/latest/download/Etna.dmg">Download</a>
+    <a href="mailto:mail@j-alyavdin.com">Contact</a>
+    <a href="https://github.com/flip-sorry/etna-releases">Releases</a>
+    <a href="/privacy">Privacy</a>
+  </nav>
+  <p class="footer__fine">Free during beta · macOS 26 or later · Apple Silicon · Signed &amp; notarized</p>
+  <p class="footer__fine">© 2026 Jury Alyavdin</p>
+</footer>
+
+</body>
+</html>
