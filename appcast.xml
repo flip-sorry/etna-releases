@@ -3,6 +3,27 @@
     <channel>
         <title>Etna</title>
         <item>
+            <title>1.3</title>
+            <pubDate>Thu, 23 Jul 2026 08:32:57 +0200</pubDate>
+            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>1.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<h2>Etna 1.3 (build 5)</h2>
+<p>Notes before the meeting starts, a redesigned onboarding, and a clearer Summary setup.</p>
+<ul>
+  <li>Pre-meeting notes: a notes icon in the notch's top-left corner opens a scratchpad before anything is recording — and you keep typing on the same Notes tab once the meeting starts. Type "- " for bullets, ⌘B/⌘I for bold and italic.</li>
+  <li>Summary settings, rebuilt around brand tiles: pick Apple Intelligence, Claude, OpenAI, or Gemini as your summarizer, with key status and setup right below the tiles.</li>
+  <li>Onboarding, redesigned: the Etna stone up front, more breathing room, provider tiles on the AI step, and Skip tucked into the notch's corner.</li>
+  <li>Settings panes that need your attention — a missing permission, a folder that isn't a vault — now show an orange dot in the sidebar.</li>
+  <li>A returning speaker is recognized as themselves instead of appearing as a duplicate "Speaker N", and a half-edited name can no longer stick by accident.</li>
+  <li>Meetings where nothing was transcribed end with a calm one-line notice, and first launch now suggests transcription languages from your keyboard layouts.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.3-b5/Etna-1.3-b5.dmg" length="27268161" type="application/octet-stream" sparkle:edSignature="Vf7yfcqakcjFNSwBrgB0jLs+S+zENe/APz+wVnBFV89GqvybzifGi6uLhGt82R5QyUkGhISms1WjVpYxKfFwBA=="/>
+        </item>
+        <item>
             <title>1.2</title>
             <pubDate>Wed, 22 Jul 2026 12:45:24 +0200</pubDate>
             <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
@@ -42,27 +63,6 @@
 </ul>
 ]]></description>
             <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.1-b3/Etna-1.1-b3.dmg" length="26148122" type="application/octet-stream" sparkle:edSignature="r9jmv7wn4gLFKnJhHUw7FxkvoNTtnGY749NmY+kp84Nzm99TNc4j2R7DS2B+J1w8WbyVwHlyRBfkmBA2jII/Cg=="/>
-        </item>
-        <item>
-            <title>1.0</title>
-            <pubDate>Mon, 20 Jul 2026 22:04:02 +0200</pubDate>
-            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
-            <sparkle:version>2</sparkle:version>
-            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<h2>Etna 1.0 (build 2)</h2>
-<p>First public build with auto-updates.</p>
-<ul>
-  <li>Records your meetings — mic and system audio — and transcribes them on this Mac. Audio never leaves the device.</li>
-  <li>Recognizes speakers across meetings and labels the transcript with names.</li>
-  <li>Detects Zoom, Teams, Slack, FaceTime, Webex, Discord, and browser calls automatically.</li>
-  <li>Lives behind the notch: a live meeting surface with transcript, input level, and controls.</li>
-  <li>Files finished notes into your Obsidian vault and keeps it organized.</li>
-  <li>Keeps itself up to date: Etna checks for updates once a day. You can turn this off in Settings → General.</li>
-</ul>
-]]></description>
-            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.0-b2/Etna-1.0-b2.dmg" length="25813375" type="application/octet-stream" sparkle:edSignature="287wqfSjDfjv/VRlnbOH05tI+nZtCOKr/Z6BlHNTcGGvPKZi4IRCSDXlxKp1s8SQ7nwfghOUZ5+B94c+W7t6BA=="/>
         </item>
     </channel>
 </rss>
