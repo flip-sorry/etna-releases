@@ -92,7 +92,7 @@
 
 <main class="legal">
   <h1>Privacy</h1>
-  <p class="updated">Last updated July 23, 2026 · Applies to Etna 1.3 and later</p>
+  <p class="updated">Last updated July 31, 2026 · Applies to Etna 1.3 and later</p>
 
   <p class="lead">Etna is private by architecture, not by promise. There is no Etna cloud,
   no account, and no server of ours anywhere. This page is the complete account of what
@@ -186,7 +186,7 @@
       <tr><td><code>Guide.completed</code></td><td>—</td><td>The first-run guide plays to its natural end</td></tr>
       <tr><td><code>Vault.configured</code></td><td>—</td><td>A vault folder is chosen successfully</td></tr>
       <tr><td><code>Meeting.started</code></td><td><code>origin</code> (manual/autoDetection), <code>sourceApp</code> (meeting-app name from a fixed registry, or none), <code>engine</code> (sortformer/classic)</td><td>Recording begins</td></tr>
-      <tr><td><code>Meeting.finished</code></td><td><code>durationBucket</code>, <code>participantBucket</code> (observed speakers only), <code>languages</code> (e.g. <code>en+ru</code>), <code>summaryEngine</code> (appleIntelligence/anthropic/openai/google/none), <code>summaryModel</code> (catalog model ID / appleIntelligence / custom / none), <code>summaryLatencyBucket</code> (&lt;5s … &gt;3m), <code>summaryOutcome</code> (ok/failed/empty), <code>transcriptionOutcome</code> (ok/partial), <code>translationUsed</code>, <code>origin</code>, <code>isFirst</code></td><td>A meeting completes</td></tr>
+      <tr><td><code>Meeting.finished</code></td><td><code>durationBucket</code>, <code>participantBucket</code> (observed speakers only), <code>languages</code> (e.g. <code>en+ru</code>), <code>summaryEngine</code> (appleIntelligence/anthropic/openai/google/none), <code>summaryModel</code> (catalog model ID / appleIntelligence / custom / none), <code>summaryLatencyBucket</code> (&lt;5s … &gt;3m), <code>summaryOutcome</code> (ok/failed/empty), <code>transcriptionOutcome</code> (ok/partial), <code>translationUsed</code>, <code>origin</code>, <code>isFirst</code>, <code>speakersNamedBucket</code> (0 … &gt;5 — how many speakers ended with a real name; counts only, never the names), <code>voiceAutoBucket</code>, <code>voiceSuggestBucket</code> (0 … &gt;5 — voice-memory auto-assignments / suggestion offers this meeting), <code>acceptedDistanceBucket</code>, <code>rejectedDistanceBucket</code> (&lt;0.25 … &gt;0.60 or none — median voice-match distances, per-meeting aggregates only, never per-speaker), <code>voiceBar</code> (0.40/0.45 — which voice-match threshold was active)</td><td>A meeting completes</td></tr>
       <tr><td><code>Meeting.discarded</code></td><td><code>durationBucket</code></td><td>You discard a recording</td></tr>
       <tr><td><code>Meeting.split</code></td><td><code>trigger</code> (calendar/appChange), <code>decision</code> (auto/accepted/dismissed)</td><td>A back-to-back meeting boundary is handled</td></tr>
       <tr><td><code>Meeting.autoRecordCancelled</code></td><td>—</td><td>You cancel a pending auto-record</td></tr>
@@ -204,7 +204,7 @@
     </tbody>
   </table>
   </div>
-  <p class="tnote">Current as of Etna 1.3 (build 5). Signal names are stable — a rename is
+  <p class="tnote">Current as of Etna 1.3. Signal names are stable — a rename is
   treated as a breaking schema change.</p>
 
   <h3>Deliberately not tracked</h3>
