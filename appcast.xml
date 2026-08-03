@@ -3,6 +3,27 @@
     <channel>
         <title>Etna</title>
         <item>
+            <title>1.4</title>
+            <pubDate>Mon, 03 Aug 2026 08:35:37 +0200</pubDate>
+            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>1.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<h2>Etna 1.4 (build 6)</h2>
+<p>Person pages that keep themselves current, and a speaker layer that recognizes people far more reliably.</p>
+<ul>
+  <li>Profile highlights: each person's note grows a Highlights section on its own — their role, what they're working on, decisions they made, who they work with — distilled from your meetings and kept current, quietly retiring anything stale. On by default under "Keep people notes updated" in Settings → Automation, with its own sub-toggle.</li>
+  <li>"Sounds like…": when a returning voice matches a remembered colleague closely but not certainly, the speaker row offers the name for a one-tap confirm — and confirming it now actually sticks, so that person is recognized automatically from the next meeting on.</li>
+  <li>Voice recognition now measures how long someone actually talked rather than how much clean audio reached it, so people who spoke plenty stop being invisible to voice memory.</li>
+  <li>The speaking indicator no longer drops out mid-sentence when the diarizer strains, and recurring large meetings are remembered again — they had been stuck on the capped four-slot engine by a state-reset bug.</li>
+  <li>Large meetings say so: a caption explains that live speaking indicators aren't available there, and the honest "labels are refined afterward" notice appears the moment all four slots fill.</li>
+  <li>Zoom: a quiet row suggests opening the Participants panel when names aren't readable, and Spanish and Russian interface decorations are now recognized alongside English. Accessibility permission is asked for at meeting start instead of a poll cycle late.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.4-b6/Etna-1.4-b6.dmg" length="26884298" type="application/octet-stream" sparkle:edSignature="T8xLMs72Sb5dMpY3sFxjII0/wTOmMBu/NGZZG++j9bJGvFJ2cBt9t6cMwyNTp7M2zh4+7SxCCcSCEtRyKM5hBA=="/>
+        </item>
+        <item>
             <title>1.3</title>
             <pubDate>Thu, 23 Jul 2026 08:32:57 +0200</pubDate>
             <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
@@ -43,26 +64,6 @@
 </ul>
 ]]></description>
             <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.2-b4/Etna-1.2-b4.dmg" length="26370572" type="application/octet-stream" sparkle:edSignature="JKfrYkszB+S+gn/Oor2MxqW4UddPMtr0pLxGK/BJuZuKjPe4qYu+XrGi+O/9Wz83DqgOm8DLrfyf8IUAefGlAA=="/>
-        </item>
-        <item>
-            <title>1.1</title>
-            <pubDate>Tue, 21 Jul 2026 12:12:57 +0200</pubDate>
-            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
-            <sparkle:version>3</sparkle:version>
-            <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<h2>Etna 1.1 (build 3)</h2>
-<p>Live translation, a natural guide voice, and language detection you can tune.</p>
-<ul>
-  <li>Live translation: flip the Translate switch during a meeting and the transcript bubbles appear in your chosen language — translated on this Mac, nothing leaves the device. Your saved note always keeps what was actually spoken.</li>
-  <li>Etna's guide now speaks with a natural recorded voice instead of the system synthesizer.</li>
-  <li>Choose which languages automatic detection listens for (up to four, in your order of preference) in Settings → Transcription.</li>
-  <li>Language detection is harder to fool: similar-sounding languages no longer split the vote.</li>
-  <li>Updates got quieter: a new version shows as a gentle hint in the notch and never interrupts a meeting in progress.</li>
-</ul>
-]]></description>
-            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.1-b3/Etna-1.1-b3.dmg" length="26148122" type="application/octet-stream" sparkle:edSignature="r9jmv7wn4gLFKnJhHUw7FxkvoNTtnGY749NmY+kp84Nzm99TNc4j2R7DS2B+J1w8WbyVwHlyRBfkmBA2jII/Cg=="/>
         </item>
     </channel>
 </rss>
