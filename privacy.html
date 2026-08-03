@@ -180,7 +180,7 @@
   <table>
     <thead><tr><th>Signal</th><th>Parameters</th><th>Fired when</th></tr></thead>
     <tbody>
-      <tr><td><code>App.launched</code></td><td><code>autoRecord</code>, <code>autoDetectLanguage</code>, <code>summaryRouting</code> (cloud/local), <code>translationEnabled</code>, <code>detectionEnabled</code>, <code>peopleNotes</code></td><td>The app starts</td></tr>
+      <tr><td><code>App.launched</code></td><td><code>autoRecord</code>, <code>autoDetectLanguage</code>, <code>summaryRouting</code> (cloud/local), <code>translationEnabled</code>, <code>detectionEnabled</code>, <code>peopleNotes</code>, <code>peopleFacts</code></td><td>The app starts</td></tr>
       <tr><td><code>Consent.granted</code></td><td><code>source</code> (onboarding/settings/prompt)</td><td>You turn analytics on</td></tr>
       <tr><td><code>Onboarding.completed</code></td><td>—</td><td>Onboarding finishes</td></tr>
       <tr><td><code>Guide.completed</code></td><td>—</td><td>The first-run guide plays to its natural end</td></tr>
@@ -201,10 +201,13 @@
       <tr><td><code>WhatsNew.opened</code></td><td><code>source</code> (autoOpen/settings)</td><td>The release-notes window opens</td></tr>
       <tr><td><code>PeopleNotes.written</code></td><td><code>createdBucket</code>, <code>updatedBucket</code> (bucketed page counts — never who)</td><td>Stakeholder pages are updated after a meeting</td></tr>
       <tr><td><code>PeopleNotes.toggled</code></td><td><code>enabled</code></td><td>The stakeholder map is turned on or off</td></tr>
+      <tr><td><code>PeopleFacts.extracted</code></td><td><code>factsBucket</code>, <code>peopleBucket</code> (facts kept / pages that received them this meeting — bucketed counts only), <code>droppedBucket</code> (facts rejected by validation), <code>engine</code> (which summarizer ran, or none), <code>outcome</code> (ok/failed/timeout/skippedNoEngine)</td><td>Profile highlights are distilled after a meeting (never fired when there was nothing to extract for)</td></tr>
+      <tr><td><code>PeopleFacts.toggled</code></td><td><code>enabled</code></td><td>Profile highlights are turned on or off</td></tr>
+      <tr><td><code>PeopleFacts.consolidated</code></td><td><code>pagesBucket</code> (pages that completed a pass), <code>supersededBucket</code> (facts a model correction archived), <code>archivedBucket</code> (facts the staleness and cap rules archived), <code>outcome</code> (ok/partial/failed)</td><td>The once-a-day background tidy of profile highlights does work</td></tr>
     </tbody>
   </table>
   </div>
-  <p class="tnote">Current as of Etna 1.3. Signal names are stable — a rename is
+  <p class="tnote">Current as of Etna 1.4. Signal names are stable — a rename is
   treated as a breaking schema change.</p>
 
   <h3>Deliberately not tracked</h3>
@@ -220,6 +223,12 @@
       outcomes only.</li>
     <li>The stakeholder map's content — names, meetings, inferred organization labels are
       vault markdown on your Mac, never telemetry.</li>
+    <li>Profile highlights content. With this feature on, Etna writes automatic,
+      unreviewed, model-derived notes about the people you meet — their role, current work,
+      decisions, who they work with — into their pages in your own vault. Those statements
+      stay on your Mac: the bucketed counts in <code>PeopleFacts.extracted</code> are the
+      only thing this ever sends, never a name, a statement, or which category it fell in.
+      It can be switched off under Settings → Automation → Profile highlights.</li>
   </ul>
 
   <h2>Software updates</h2>
