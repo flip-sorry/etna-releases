@@ -190,6 +190,8 @@
       <tr><td><code>Meeting.discarded</code></td><td><code>durationBucket</code></td><td>You discard a recording</td></tr>
       <tr><td><code>Meeting.split</code></td><td><code>trigger</code> (calendar/appChange), <code>decision</code> (auto/accepted/dismissed)</td><td>A back-to-back meeting boundary is handled</td></tr>
       <tr><td><code>Meeting.autoRecordCancelled</code></td><td>—</td><td>You cancel a pending auto-record</td></tr>
+      <tr><td><code>Meeting.systemAudioStalled</code></td><td><code>reason</code> (noAudio/noTranscription), <code>elapsedBucket</code> (&lt;5m … &gt;2h — how far into the meeting it happened)</td><td>The other side's audio goes quiet or stops transcribing mid-meeting (at most once per meeting)</td></tr>
+      <tr><td><code>Meeting.tapRebuilds</code></td><td><code>countBucket</code> (1-2/3-10/over10), <code>trigger</code> (deviceChange/rateDrift/starved/zeroByteStorm — the first rebuild trigger of the meeting)</td><td>A meeting finishes after its system-audio tap had to be rebuilt (e.g. you switched audio devices)</td></tr>
       <tr><td><code>Error.occurred</code></td><td><code>code</code> (error category name, <code>other</code>, <code>emptyMeeting</code>), <code>context</code> (start/recording/finalize/organizer)</td><td>An operation fails</td></tr>
       <tr><td><code>Organizer.suggestion</code></td><td><code>kind</code> (folder/restructure), <code>action</code> (applied/snoozed/undone)</td><td>You act on an organizer suggestion</td></tr>
       <tr><td><code>Speakers.namesApplied</code></td><td><code>countBucket</code>, <code>surface</code> (panel/review/popover)</td><td>You save speaker names (closing without changes sends nothing)</td></tr>
