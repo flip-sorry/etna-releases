@@ -3,6 +3,27 @@
     <channel>
         <title>Etna</title>
         <item>
+            <title>1.5</title>
+            <pubDate>Fri, 07 Aug 2026 20:04:29 +0200</pubDate>
+            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>1.5</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<h2>Etna 1.5 (build 7)</h2>
+<p>Headphone meetings now transcribe live, and a failed summary is no longer lost — Etna rebuilds it from the saved transcript.</p>
+<ul>
+  <li>Lost summaries recover themselves: when a meeting-end summary fails (network drop, provider outage), the finished card offers "Try Again" — and on the next launch Etna quietly rebuilds summaries for recent meetings whose transcript was saved without one.</li>
+  <li>Remote speech shows up live during headphone meetings: attributed "Speaker N" bubbles appear within moments of someone talking instead of filling in only after Stop, and a warning appears if Etna is hearing a call but capturing no words from it.</li>
+  <li>Speaker naming and attribution no longer drift as a meeting runs long — a clock-rate correction keeps live transcripts aligned with the real audio.</li>
+  <li>AirPods and other Bluetooth headsets: remote voices are no longer garbled into fragments when another app holds the microphone (e.g. Zoom), and system-audio capture recovers cleanly when the output device changes mid-call.</li>
+  <li>The notch level indicator now animates on remote speech too, not just your own voice.</li>
+  <li>A momentary network blip at meeting end no longer costs you the summary — cloud summaries, titles, and classification retry once after a short pause.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.5-b7/Etna-1.5-b7.dmg" length="26901216" type="application/octet-stream" sparkle:edSignature="wWdxezt1WU5P7ZSMkxhNc0vJVyp2T536ki2UskTa3cXbNwt1Pv7v0RygFFTP0WsPkecA0Mcd3nr0xB5nNYMZCw=="/>
+        </item>
+        <item>
             <title>1.4</title>
             <pubDate>Mon, 03 Aug 2026 08:35:37 +0200</pubDate>
             <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
@@ -43,27 +64,6 @@
 </ul>
 ]]></description>
             <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.3-b5/Etna-1.3-b5.dmg" length="27268161" type="application/octet-stream" sparkle:edSignature="Vf7yfcqakcjFNSwBrgB0jLs+S+zENe/APz+wVnBFV89GqvybzifGi6uLhGt82R5QyUkGhISms1WjVpYxKfFwBA=="/>
-        </item>
-        <item>
-            <title>1.2</title>
-            <pubDate>Wed, 22 Jul 2026 12:45:24 +0200</pubDate>
-            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
-            <sparkle:version>4</sparkle:version>
-            <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<h2>Etna 1.2 (build 4)</h2>
-<p>A living map of the people you meet, effortless back-to-back meetings, and a feedback channel.</p>
-<ul>
-  <li>Stakeholder map: Etna keeps a note per person you meet regularly in a People/ folder of your vault — their meetings, action items, groups, and "often seen with" links — so Obsidian's graph shows your relationship network. Your own edits are never touched.</li>
-  <li>Back-to-back meetings run themselves: when the next meeting starts while the last one is still summarizing, Etna hands off and begins recording within seconds. Deferred auto-record catches up the moment the app is free.</li>
-  <li>Over-split speakers can now be merged in the "who said what" review — pick "Merge into" from a row's menu.</li>
-  <li>What's New (this window!) opens once after each update, and lives in Settings → General → Updates.</li>
-  <li>Send Feedback… in the ⋯ menu: a pre-filled email to support, with an optional diagnostics report that never includes meeting content.</li>
-  <li>Optional anonymous usage analytics — strictly opt-in, off unless you say yes, and never anything you said, wrote, or named.</li>
-</ul>
-]]></description>
-            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.2-b4/Etna-1.2-b4.dmg" length="26370572" type="application/octet-stream" sparkle:edSignature="JKfrYkszB+S+gn/Oor2MxqW4UddPMtr0pLxGK/BJuZuKjPe4qYu+XrGi+O/9Wz83DqgOm8DLrfyf8IUAefGlAA=="/>
         </item>
     </channel>
 </rss>
