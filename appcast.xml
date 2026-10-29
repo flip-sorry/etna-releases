@@ -3,6 +3,27 @@
     <channel>
         <title>Etna</title>
         <item>
+            <title>1.7</title>
+            <pubDate>Thu, 29 Oct 2026 07:52:57 +0100</pubDate>
+            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
+            <sparkle:version>9</sparkle:version>
+            <sparkle:shortVersionString>1.7</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<h2>Etna 1.7 (build 9)</h2>
+<p>Summaries no longer need an account or an API key to be good: a local language model, downloaded once, writes your notes entirely on this Mac — including Russian meetings and hour-long calls that Apple Intelligence could not take in one piece.</p>
+<ul>
+  <li>New engine: Local model. Pick it in Settings › Summary (it is the first tile) or during setup; Etna downloads a 3 GB model from Hugging Face, verifies it, and keeps it under Application Support. Summaries run in a separate helper process so a memory-hungry summary can never interrupt a recording, and the helper quits by itself about a minute after the notes land.</li>
+  <li>Longer meetings, fewer stitches: the local model reads up to an hour of transcript in one pass on 16 GB Macs (half that on 8 GB), so decisions and action items are not lost between chunks. Russian and mixed-language meetings summarize locally — Apple Intelligence still cannot.</li>
+  <li>Opt-in for now: nothing is downloaded and no engine is switched until you pick the tile. Apple Intelligence and the cloud engines are unchanged. The local model becomes the suggested free default once it clears the faithfulness bar in our meeting evaluation — a 4B model still reports some open questions as settled, so cloud keys remain the best notes today.</li>
+  <li>If the model is chosen but not ready yet, summaries use Apple Intelligence meanwhile and are written locally once the download finishes — a stored cloud key is never used unless you chose it.</li>
+  <li>Downloads survive quitting, pause on hotspots and during recordings, and can be cancelled, resumed, repaired or deleted from Settings. The disk check keeps the recorder's free-space reserve intact.</li>
+  <li>Housekeeping: the summary-recovery sweep now also picks up meetings whose summary waited for the model; Stop &amp; Save never waits more than 20 seconds on a local summary; Settings › About lists the new model and runtime licenses.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.7-b9/Etna-1.7-b9.dmg" length="34867884" type="application/octet-stream" sparkle:edSignature="mHlPZiM7h72ovrIDdqsavD4Xe0RITLMkV7RoOi7FsGaD4VDynddtHg6Nm6XQOhoZ6mNkrTA0zlbT86b+RCDiAA=="/>
+        </item>
+        <item>
             <title>1.6</title>
             <pubDate>Fri, 09 Oct 2026 08:24:06 +0200</pubDate>
             <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
@@ -45,27 +66,6 @@
 </ul>
 ]]></description>
             <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.5-b7/Etna-1.5-b7.dmg" length="26901216" type="application/octet-stream" sparkle:edSignature="wWdxezt1WU5P7ZSMkxhNc0vJVyp2T536ki2UskTa3cXbNwt1Pv7v0RygFFTP0WsPkecA0Mcd3nr0xB5nNYMZCw=="/>
-        </item>
-        <item>
-            <title>1.4</title>
-            <pubDate>Mon, 03 Aug 2026 08:35:37 +0200</pubDate>
-            <sparkle:fullReleaseNotesLink>https://github.com/flip-sorry/etna-releases/releases</sparkle:fullReleaseNotesLink>
-            <sparkle:version>6</sparkle:version>
-            <sparkle:shortVersionString>1.4</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description><![CDATA[<h2>Etna 1.4 (build 6)</h2>
-<p>Person pages that keep themselves current, and a speaker layer that recognizes people far more reliably.</p>
-<ul>
-  <li>Profile highlights: each person's note grows a Highlights section on its own — their role, what they're working on, decisions they made, who they work with — distilled from your meetings and kept current, quietly retiring anything stale. On by default under "Keep people notes updated" in Settings → Automation, with its own sub-toggle.</li>
-  <li>"Sounds like…": when a returning voice matches a remembered colleague closely but not certainly, the speaker row offers the name for a one-tap confirm — and confirming it now actually sticks, so that person is recognized automatically from the next meeting on.</li>
-  <li>Voice recognition now measures how long someone actually talked rather than how much clean audio reached it, so people who spoke plenty stop being invisible to voice memory.</li>
-  <li>The speaking indicator no longer drops out mid-sentence when the diarizer strains, and recurring large meetings are remembered again — they had been stuck on the capped four-slot engine by a state-reset bug.</li>
-  <li>Large meetings say so: a caption explains that live speaking indicators aren't available there, and the honest "labels are refined afterward" notice appears the moment all four slots fill.</li>
-  <li>Zoom: a quiet row suggests opening the Participants panel when names aren't readable, and Spanish and Russian interface decorations are now recognized alongside English. Accessibility permission is asked for at meeting start instead of a poll cycle late.</li>
-</ul>
-]]></description>
-            <enclosure url="https://github.com/flip-sorry/etna-releases/releases/download/v1.4-b6/Etna-1.4-b6.dmg" length="26884298" type="application/octet-stream" sparkle:edSignature="T8xLMs72Sb5dMpY3sFxjII0/wTOmMBu/NGZZG++j9bJGvFJ2cBt9t6cMwyNTp7M2zh4+7SxCCcSCEtRyKM5hBA=="/>
         </item>
     </channel>
 </rss>
